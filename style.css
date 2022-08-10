@@ -1,6 +1,8 @@
 body {
 font-family: "Times New Roman", Times, serif;
-background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(2555,0,0,1));
+background-image: linear-gradient(to right, rgba(255, 6, 201, 0.406), rgb(255, 132, 0));
+background-color:#c63b3b;
+
 }
 footer {
 font-family: "Times New Roman", Times, serif;
@@ -12,7 +14,7 @@ position: fixed;
 z-index: 1;
 top: 0;
 left: 0;
-background-color: #ff99ff;
+background-color: #6f6a6a;
 overflow-x: hidden;
 padding-top: 20px;
 }
@@ -20,20 +22,21 @@ padding-top: 20px;
 padding: 6px 8px 6px 16px;
 text-decoration: none;
 font-size: 25px;
-color: #000000;
+color: #5f4b4b;
 display: block;
 }
 .sidenav a:hover {
-color: #ff3399;
+color: #87546d;
 }
 a:link {
 text-decoration: none;
-color: #99ffcc;
+color: #ffffff;
 }
 .main {
 margin-left: 160px; /* Same as the width of the sidenav */
 font-size: 28px; /* Increased text to enable scrolling */
 padding: 0px 10px;
+
 }
 .wavy {
 display: inline-flex;
