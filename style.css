@@ -1,7 +1,9 @@
 body {
 font-family: "Times New Roman", Times, serif;
-background-image: linear-gradient(to right, rgba(255, 6, 201, 0.406), rgb(255, 132, 0));
-background-color:#c63b3b;
+margin: 0;
+overflow-x: hidden;
+/*background-image: linear-gradient(to right, rgba(255, 6, 201, 0.406), rgb(255, 132, 0));
+background-color:#c63b3b; */
 
 }
 footer {

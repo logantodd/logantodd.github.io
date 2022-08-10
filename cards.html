@@ -6,25 +6,26 @@
    </head>
   
    <script> function ratwall() {var randomColor = Math.floor(Math.random()*16777215).toString(16);document.body.style.backgroundColor = `#${randomColor}`;} </script>
+   <script> function ratwall2() {var randomColor = "c63b3b" ;document.body.style.backgroundColor = `#${randomColor}`;} </script>
+   
    <body>
-      
+    <script type="text/javascript" src="canvas.js" async></script>
       <script src="wavyText.js" defer></script>
       <div class="sidenav">
-         <a href="index.html">home</a>
+         <a href="index.html">Home</a>
          <a href="projects.html">Projects</a>
          <a href="software.html">Software</a>
-         <a href="cards.html">cards</a>
+         <a href="cards.html">Cards (broken)</a>
          <a href="aboutme.html">About Me</a>
-         <button onclick="ratwall()">funky color button</button>
+         <button onclick="ratwall2()">funky color button</button>
       </div>
       <div class="main">
-         <h1><span class="wavy" ampl=3>My Software</span></h1>
+         <h1><span class="wavy" ampl=3>ToddCards</span></h1>
 
-         
+            <script src="common.js"></script> 
+
             <p>Orthello</p>
-            <br>Orthello code explanation
-            <p>Bag tracker<p>
-            <br>info about bag tracker
-            <br>
+            <canvas></canvas>
+           
    </body>
 </html>
