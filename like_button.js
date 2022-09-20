@@ -1,7 +1,12 @@
 'use strict';
 
 const e = React.createElement;
-
+class FlashCard extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = { liked: false };
+      }
+}
 class LikeButton extends React.Component {
   constructor(props) {
     super(props);
@@ -23,3 +28,6 @@ class LikeButton extends React.Component {
 const domContainer = document.querySelector('#button_container');
 const root = ReactDOM.createRoot(domContainer);
 root.render(e(LikeButton));
+
+
+
