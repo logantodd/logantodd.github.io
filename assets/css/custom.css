@@ -173,7 +173,15 @@ html[data-font="atkinson"] .footer {
   z-index: 100;
 }
 
-.menu-item:hover .dropdown {
+/* Desktop hover behavior */
+@media (hover: hover) and (pointer: fine) {
+  .menu-item:hover .dropdown {
+    display: block;
+  }
+}
+
+/* Touch/click behavior (Safari, iOS, touch devices) */
+.menu-item.active .dropdown {
   display: block;
 }
 

@@ -61,6 +61,36 @@
   updateClock();
   setInterval(updateClock, 1000);
 
+  // Safari/iOS touch-friendly menu handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = document.querySelectorAll('.menu-item:not(.app-name):not(:first-child):not(:has(#clock))');
+    let currentOpenMenu = null;
+
+    menuItems.forEach(item => {
+      const dropdown = item.querySelector('.dropdown');
+      if (dropdown) {
+        item.addEventListener('click', function(e) {
+          e.stopPropagation();
+
+          // Close other menus
+          if (currentOpenMenu && currentOpenMenu !== item) {
+            currentOpenMenu.classList.remove('active');
+          }
+
+          // Toggle current menu
+          item.classList.toggle('active');
+          currentOpenMenu = item.classList.contains('active') ? item : null;
+        });
+      }
+    });
+
+    // Close menus when clicking outside
+    document.addEventListener('click', function() {
+      menuItems.forEach(item => item.classList.remove('active'));
+      currentOpenMenu = null;
+    });
+  });
+
   // Theme switching logic
   const lightModeMenu = document.getElementById('light-mode-menu');
   const darkModeMenu = document.getElementById('dark-mode-menu');
