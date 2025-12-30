@@ -8,11 +8,9 @@
   <div class="menu-item">
     File
     <div class="dropdown">
-      <div class="dropdown-item">
-        <a href="{{ '/' | relative_url }}">About</a>
-      </div>
+      <div class="dropdown-item" id="about-menu-item">About</div>
       <div class="divider"></div>
-      <div class="dropdown-item disabled">Close Window</div>
+      <div class="dropdown-item" id="close-window-menu-item">Close Window</div>
     </div>
   </div>
   <div class="menu-item">
@@ -115,4 +113,56 @@
       }
     });
   }
+
+  // About window functionality
+  function showAboutWindow() {
+    const overlay = document.getElementById('about-overlay');
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
+  }
+
+  function hideAboutWindow() {
+    const overlay = document.getElementById('about-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
+  }
+
+  // Wait for DOM to be ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // About menu item - show About window
+    const aboutMenuItem = document.getElementById('about-menu-item');
+    if (aboutMenuItem) {
+      aboutMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        showAboutWindow();
+      });
+    }
+
+    // Close Window menu item - go to home
+    const closeWindowMenuItem = document.getElementById('close-window-menu-item');
+    if (closeWindowMenuItem) {
+      closeWindowMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = '{{ "/" | relative_url }}';
+      });
+    }
+
+    // About close button
+    const aboutClose = document.getElementById('about-close');
+    if (aboutClose) {
+      aboutClose.addEventListener('click', hideAboutWindow);
+    }
+
+    // Click overlay to close
+    const aboutOverlay = document.getElementById('about-overlay');
+    if (aboutOverlay) {
+      aboutOverlay.addEventListener('click', function(e) {
+        if (e.target === aboutOverlay) {
+          hideAboutWindow();
+        }
+      });
+    }
+  });
 </script>

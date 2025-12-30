@@ -346,3 +346,53 @@ li::marker {
   color: var(--theme-overlay0);
   font-size: 0.9rem;
 }
+
+/* About Window Modal */
+.about-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.about-window {
+  background: var(--theme-base);
+  border: 2px solid var(--theme-text);
+  box-shadow: 4px 4px 0 var(--theme-surface0);
+  width: 400px;
+  max-width: 90%;
+}
+
+.about-content {
+  padding: 2rem;
+  text-align: center;
+}
+
+.about-image {
+  margin-bottom: 1.5rem;
+}
+
+.about-image img {
+  display: block;
+  margin: 0 auto;
+  border: 2px solid var(--theme-surface0);
+  background: var(--theme-mantle);
+  padding: 0.5rem;
+}
+
+.about-text h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.about-text p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
