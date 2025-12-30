@@ -1,6 +1,6 @@
 ---
 title: Resume
-app_name: rResume
+app_name: Resume
 ---
 
 # Abby Bigaouette
