@@ -12,6 +12,12 @@
   --theme-crust: var(--ctp-mocha-crust);
   --theme-red: var(--ctp-mocha-red);
   --theme-green: var(--ctp-mocha-green);
+  --theme-rainbow-green: var(--ctp-mocha-green);
+  --theme-rainbow-yellow: var(--ctp-mocha-yellow);
+  --theme-rainbow-peach: var(--ctp-mocha-peach);
+  --theme-rainbow-red: var(--ctp-mocha-red);
+  --theme-rainbow-mauve: var(--ctp-mocha-mauve);
+  --theme-rainbow-sky: var(--ctp-mocha-sky);
 }
 
 /* Light theme (Latte) override */
@@ -27,6 +33,12 @@ html[data-theme="latte"] {
   --theme-crust: var(--ctp-latte-crust);
   --theme-red: var(--ctp-latte-red);
   --theme-green: var(--ctp-latte-green);
+  --theme-rainbow-green: var(--ctp-latte-green);
+  --theme-rainbow-yellow: var(--ctp-latte-yellow);
+  --theme-rainbow-peach: var(--ctp-latte-peach);
+  --theme-rainbow-red: var(--ctp-latte-red);
+  --theme-rainbow-mauve: var(--ctp-latte-mauve);
+  --theme-rainbow-sky: var(--ctp-latte-sky);
 }
 
 :root {
@@ -137,7 +149,27 @@ html[data-font="atkinson"] .footer {
   width: 14px;
   height: 16px;
   display: inline-block;
-  fill: currentColor;
+  font-weight: bold;
+  /* Blocky rainbow gradient - green, yellow, orange, red, mauve, sky */
+  background: linear-gradient(
+    90deg,
+    var(--theme-rainbow-green) 0%,
+    var(--theme-rainbow-green) 16.67%,
+    var(--theme-rainbow-yellow) 16.67%,
+    var(--theme-rainbow-yellow) 33.33%,
+    var(--theme-rainbow-peach) 33.33%,
+    var(--theme-rainbow-peach) 50%,
+    var(--theme-rainbow-red) 50%,
+    var(--theme-rainbow-red) 66.67%,
+    var(--theme-rainbow-mauve) 66.67%,
+    var(--theme-rainbow-mauve) 83.33%,
+    var(--theme-rainbow-sky) 83.33%,
+    var(--theme-rainbow-sky) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* Only highlight when active (clicked), not on hover - matches macOS */
