@@ -43,6 +43,19 @@
       <div class="dropdown-item" id="atkinson-font-menu">Atkinson Hyperlegible</div>
     </div>
   </div>
+  <div class="menu-item">
+    Help
+    <div class="dropdown">
+      <div class="dropdown-item" id="acknowledgements-menu-item">Acknowledgements</div>
+      <div class="divider"></div>
+      <div class="dropdown-item">
+        <a href="https://github.com/abbyfluoroethane/abbyfluoroethane.github.io/issues" target="_blank">Report a Bug</a>
+      </div>
+      <div class="dropdown-item">
+        <a href="https://github.com/abbyfluoroethane/abbyfluoroethane.github.io" target="_blank">View Source</a>
+      </div>
+    </div>
+  </div>
   <div class="spacer"></div>
   <div class="menu-item">
     <span id="clock">--:--</span>
@@ -193,6 +206,21 @@
     }
   }
 
+  // Acknowledgements window functionality
+  function showAcknowledgementsWindow() {
+    const overlay = document.getElementById('acknowledgements-overlay');
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
+  }
+
+  function hideAcknowledgementsWindow() {
+    const overlay = document.getElementById('acknowledgements-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
+  }
+
   // Wait for DOM to be ready
   document.addEventListener('DOMContentLoaded', function() {
     // About menu item - show About window
@@ -201,6 +229,15 @@
       aboutMenuItem.addEventListener('click', function(e) {
         e.preventDefault();
         showAboutWindow();
+      });
+    }
+
+    // Acknowledgements menu item - show Acknowledgements window
+    const acknowledgementsMenuItem = document.getElementById('acknowledgements-menu-item');
+    if (acknowledgementsMenuItem) {
+      acknowledgementsMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        showAcknowledgementsWindow();
       });
     }
 
@@ -230,12 +267,28 @@
       aboutClose.addEventListener('click', hideAboutWindow);
     }
 
-    // Click overlay to close
+    // Acknowledgements close button
+    const acknowledgementsClose = document.getElementById('acknowledgements-close');
+    if (acknowledgementsClose) {
+      acknowledgementsClose.addEventListener('click', hideAcknowledgementsWindow);
+    }
+
+    // Click overlay to close About
     const aboutOverlay = document.getElementById('about-overlay');
     if (aboutOverlay) {
       aboutOverlay.addEventListener('click', function(e) {
         if (e.target === aboutOverlay) {
           hideAboutWindow();
+        }
+      });
+    }
+
+    // Click overlay to close Acknowledgements
+    const acknowledgementsOverlay = document.getElementById('acknowledgements-overlay');
+    if (acknowledgementsOverlay) {
+      acknowledgementsOverlay.addEventListener('click', function(e) {
+        if (e.target === acknowledgementsOverlay) {
+          hideAcknowledgementsWindow();
         }
       });
     }
