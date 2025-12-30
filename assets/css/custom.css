@@ -152,7 +152,7 @@ html[data-font="atkinson"] .footer {
   font-weight: bold;
   /* Blocky rainbow gradient - green, yellow, orange, red, mauve, sky */
   background: linear-gradient(
-    90deg,
+    180deg,
     var(--theme-rainbow-green) 0%,
     var(--theme-rainbow-green) 16.67%,
     var(--theme-rainbow-yellow) 16.67%,
