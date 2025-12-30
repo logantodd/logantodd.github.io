@@ -63,8 +63,8 @@ body {
   font-family: Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--theme-base);
   color: var(--theme-text);
-  font-size: 22px;
-  line-height: 1;
+  font-size: 24px;
+  line-height: 1.4;
   padding: 2rem;
   background: linear-gradient(90deg,
     var(--theme-mantle) 21px,
@@ -351,7 +351,7 @@ li::marker {
   border-top: 2px dotted var(--theme-surface1);
   text-align: center;
   color: var(--theme-overlay0);
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 /* About Window Modal */
@@ -401,7 +401,7 @@ li::marker {
 
 .about-text p {
   margin: 0.25rem 0;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 /* Mobile Optimizations */
@@ -409,7 +409,8 @@ li::marker {
   /* Reduce body padding */
   body {
     padding: 1rem;
-    font-size: 20px;
+    font-size: 22px;
+    line-height: 1.4;
   }
 
   /* Hide clock and its container on mobile */
@@ -493,7 +494,7 @@ li::marker {
 
   /* Reduce footer size */
   .footer {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -501,7 +502,8 @@ li::marker {
   /* Extra small screens */
   body {
     padding: 0.5rem;
-    font-size: 18px;
+    font-size: 20px;
+    line-height: 1.4;
   }
 
   .menu-bar {
@@ -543,6 +545,6 @@ li::marker {
   }
 
   .about-text p {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 }

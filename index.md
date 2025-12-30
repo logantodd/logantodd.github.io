@@ -3,20 +3,22 @@ title: ~/abbyfluoroethane
 app_name: Home
 ---
 
-# hey, i'm abby
+# haii, i'm abby :3
 
-welcome to my little corner of the internet. i build things, break things, 
-and occasionally write about it.
+welcome to my little corner of the internet. i build things that go to space, break things that stay on earth, and occasionally muse about my thoughts.
 
 ## what i do
 
-currently working on [cool project name](#). meow nyayayayayana meow mrrp meow.
+i currently work as a technician at blue origin, where i help build new glenn. outside of work i build (small) rockets, write, and take pictures of things that fly. meow nyayayayayana meow mrrp meow.
+
+## things i like
 
 - new glenn
 - f-35 lightning ii
-- being gay, doing crime
+- fedora linux
+- my wife
 
-## recent projects
+## recent projects (placeholders lol)
 
 <div class="project">
   <h3>project one</h3>
@@ -34,6 +36,8 @@ currently working on [cool project name](#). meow nyayayayayana meow mrrp meow.
   </p>
 </div>
 
-## contact
+## contact me!
 
-[me@example.com](mailto:you@example.com)
+[fedi | dormsoc](https://dorm.social/@abbyfluoroethane)
+[inst*gram](https://instagram.com/abbyfluoroethane)
+[email@placeholder.com](#)
