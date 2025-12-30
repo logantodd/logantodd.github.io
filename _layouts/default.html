@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    
+    <!-- System7.css -->
+    <link rel="stylesheet" href="https://unpkg.com/system7.css@0.1.2/dist/system7.css">
+    
+    <style>
+        /* Catppuccin Mocha Colors */
+        :root {
+            --ctp-base: #1e1e2e;
+            --ctp-mantle: #181825;
+            --ctp-crust: #11111b;
+            --ctp-surface0: #313244;
+            --ctp-surface1: #45475a;
+            --ctp-surface2: #585b70;
+            --ctp-overlay0: #6c7086;
+            --ctp-overlay1: #7f849c;
+            --ctp-text: #cdd6f4;
+            --ctp-pink: #f5c2e7;
+            --ctp-subtext0: #a6adc8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--ctp-base);
+            color: var(--ctp-text);
+            font-family: "Chicago", "Charcoal", sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Override system7 defaults with catppuccin */
+        .window {
+            background: var(--ctp-mantle);
+            border-color: var(--ctp-surface1);
+            box-shadow: 2px 2px 0 var(--ctp-crust);
+            max-width: 900px;
+            margin: 0 auto 20px;
+        }
+
+        .title-bar {
+            background: var(--ctp-pink);
+            color: var(--ctp-crust);
+        }
+
+        .window-body {
+            background: var(--ctp-mantle);
+            color: var(--ctp-text);
+            margin: 8px;
+        }
+
+        /* Custom styles */
+        .desktop {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-window {
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links button {
+            background: var(--ctp-surface0);
+            color: var(--ctp-text);
+            border: 2px outset var(--ctp-surface1);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .nav-links button:hover {
+            background: var(--ctp-surface1);
+        }
+
+        .nav-links button:active {
+            border-style: inset;
+        }
+
+        .nav-links button.active {
+            background: var(--ctp-pink);
+            color: var(--ctp-crust);
+            font-weight: bold;
+        }
+
+        .content-window {
+            min-height: 400px;
+        }
+
+        a {
+            color: var(--ctp-pink);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .blog-post-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .blog-post-list li {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--ctp-surface0);
+            border: 2px solid var(--ctp-surface1);
+        }
+
+        .post-date {
+            color: var(--ctp-subtext0);
+            font-size: 0.9em;
+        }
+
+        .post-title {
+            color: var(--ctp-pink);
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 4px 0;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .window {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-links button {
+                width: 100%;
+            }
+        }
+
+        /* Desktop only: draggable hint */
+        @media (min-width: 769px) {
+            .title-bar {
+                cursor: move;
+            }
+        }
+
+        /* Markdown content styling */
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3 {
+            color: var(--ctp-pink);
+            margin-top: 1.5em;
+        }
+
+        .markdown-content code {
+            background: var(--ctp-crust);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .markdown-content pre {
+            background: var(--ctp-crust);
+            padding: 12px;
+            overflow-x: auto;
+            border: 1px solid var(--ctp-surface1);
+        }
+
+        .markdown-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .markdown-content blockquote {
+            border-left: 4px solid var(--ctp-pink);
+            margin-left: 0;
+            padding-left: 16px;
+            color: var(--ctp-subtext0);
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <!-- Navigation Window -->
+        <div class="window nav-window">
+            <div class="title-bar">
+                <div class="title-bar-text">Navigation</div>
+            </div>
+            <div class="window-body">
+                <div class="nav-links">
+                    <button onclick="window.location.href='/'">Home</button>
+                    <button onclick="window.location.href='/portfolio'">Portfolio</button>
+                    <button onclick="window.location.href='/blog'">Blog</button>
+                    <button onclick="window.location.href='/about'">About</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Window -->
+        <div class="window content-window">
+            <div class="title-bar">
+                <div class="title-bar-text">{{ page.title | default: "Welcome" }}</div>
+            </div>
+            <div class="window-body markdown-content">
+                {{ content }}
+            </div>
+        </div>
+
+        <!-- Footer Window -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">Info</div>
+            </div>
+            <div class="window-body">
+                <p style="margin: 0; text-align: center; color: var(--ctp-subtext0);">
+                    Made with System7.css & Catppuccin Mocha 💖
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
