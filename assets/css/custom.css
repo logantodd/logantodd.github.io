@@ -140,11 +140,7 @@ html[data-font="atkinson"] .footer {
   fill: currentColor;
 }
 
-.menu-item:hover:not(:first-child):not(.app-name) {
-  background: var(--theme-pink);
-  color: var(--theme-crust);
-}
-
+/* Only highlight when active (clicked), not on hover - matches macOS */
 .menu-item.active {
   background: var(--theme-pink);
   color: var(--theme-crust);
@@ -173,14 +169,7 @@ html[data-font="atkinson"] .footer {
   z-index: 100;
 }
 
-/* Desktop hover behavior */
-@media (hover: hover) and (pointer: fine) {
-  .menu-item:hover .dropdown {
-    display: block;
-  }
-}
-
-/* Touch/click behavior (Safari, iOS, touch devices) */
+/* Click behavior only - matches macOS menu bar */
 .menu-item.active .dropdown {
   display: block;
 }
