@@ -48,5 +48,7 @@ Aerospace-grade mechanic building a road to space. Extensive experience in high-
 
 ### Skills, Awards, and Certifications
 **Skills:** CAD (Autodesk Fusion, Autodesk Inventor, OnShape, Creo); 3D Printing (FDM, SLA, SLS); Welding (MIG, TIG); Rigging, Lifting; Composites Manufacturing (Fiberglass, Carbon Fiber); Precision Drilling; System Testing; Project Management; Programming (Python, C# .NET); Web Development (HTML, CSS, Svelte); AP Style; Adobe Creative Cloud (Illustrator, InDesign, Premiere Pro, Photoshop); Serif Affinity (Designer, Photo, Publisher)
+
 **Certifications:** Laser Operator, Multi-Layer Insulation/MLI Installation, Cleanroom Entry and Operations, Hydraulic and Pneumatic Testing, ESD Protected Area (Blue Origin); Level 2 HPR (National Association of Rocketry)
+
 **Awards:** Sequoyah Award, Oklahoma Press Association (2024); Newspaper of the Year, Best of CNHI Div. II (2024); Newspaper of the Year, Best of CNHI Div. III (2023)
