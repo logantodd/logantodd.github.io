@@ -412,7 +412,11 @@ li::marker {
     font-size: 20px;
   }
 
-  /* Hide clock on mobile */
+  /* Hide clock and its container on mobile */
+  .menu-item:has(#clock) {
+    display: none;
+  }
+
   #clock {
     display: none;
   }
