@@ -1,5 +1,6 @@
 ---
 title: ~/abbyfluoroethane
+app_name: Home
 ---
 
 # hey, i'm abby
