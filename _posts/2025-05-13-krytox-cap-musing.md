@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The humble Krytox cap: Musings on work ethic and ownership
-date: 2025-05-13 00:00:00 -0000
+date: 2025-05-13
 ---
 
 *Below is an edited version of a blog post I wrote for work. Only proprietary and/or export controlled information has been omitted.*
