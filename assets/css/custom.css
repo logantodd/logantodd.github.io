@@ -369,6 +369,38 @@ li::marker {
   font-size: 1.05rem;
 }
 
+/* 88x31 Buttons */
+.buttons-88x31 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.buttons-88x31 a {
+  border: none;
+  line-height: 0;
+  display: inline-block;
+}
+
+.buttons-88x31 a:hover {
+  background: none;
+  opacity: 0.8;
+}
+
+.buttons-88x31 img {
+  display: block;
+  width: 88px;
+  height: 31px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.footer-text {
+  margin-top: 0;
+}
+
 /* About Window Modal */
 .about-overlay {
   position: fixed;
