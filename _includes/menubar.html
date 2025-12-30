@@ -143,10 +143,21 @@
     // Close Window menu item - go to home
     const closeWindowMenuItem = document.getElementById('close-window-menu-item');
     if (closeWindowMenuItem) {
-      closeWindowMenuItem.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = '{{ "/" | relative_url }}';
-      });
+      // Check if we're on the home page
+      const currentPath = window.location.pathname;
+      const homePath = '{{ "/" | relative_url }}';
+      const isHomePage = currentPath === homePath || currentPath === homePath + 'index.html';
+
+      if (isHomePage) {
+        // Disable on home page
+        closeWindowMenuItem.classList.add('disabled');
+      } else {
+        // Enable on other pages
+        closeWindowMenuItem.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = homePath;
+        });
+      }
     }
 
     // About close button
