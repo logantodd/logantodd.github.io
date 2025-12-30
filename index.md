@@ -36,29 +36,3 @@ currently working on [cool project name](#). meow nyayayayayana meow mrrp meow.
 ## contact
 
 [me@example.com](mailto:you@example.com)
-
----
-
-# projects.md
----
-title: Projects
-app_name: Projects
----
-
-# projects
-
-stuff i've built
-
-## active
-
-<div class="project">
-  <h3>thing one</h3>
-  <p>description here. <a href="#">github</a></p>
-</div>
-
-## archive
-
-<div class="project">
-  <h3>old thing</h3>
-  <p>it was cool at the time. <a href="#">github</a></p>
-</div>
