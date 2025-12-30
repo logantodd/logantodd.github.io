@@ -74,6 +74,16 @@ body {
   background-size: 22px 22px;
 }
 
+/* Atkinson Hyperlegible font override */
+html[data-font="atkinson"] body {
+  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[data-font="atkinson"] .content p,
+html[data-font="atkinson"] .content li {
+  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 .container {
   max-width: 900px;
   margin: 0 auto;

@@ -36,6 +36,8 @@
     <div class="dropdown">
       <div class="dropdown-item" id="light-mode-menu">Light Mode</div>
       <div class="dropdown-item" id="dark-mode-menu">Dark Mode</div>
+      <div class="divider"></div>
+      <div class="dropdown-item" id="atkinson-font-menu">Atkinson Hyperlegible</div>
     </div>
   </div>
   <div class="spacer"></div>
@@ -59,6 +61,7 @@
   // Theme switching logic
   const lightModeMenu = document.getElementById('light-mode-menu');
   const darkModeMenu = document.getElementById('dark-mode-menu');
+  const atkinsonFontMenu = document.getElementById('atkinson-font-menu');
   const CHECKMARK = '\u2713 ';
 
   function setTheme(theme) {
@@ -68,10 +71,10 @@
     } catch (e) {
       console.warn('Could not save theme preference:', e);
     }
-    updateMenuCheckmarks(theme);
+    updateThemeCheckmarks(theme);
   }
 
-  function updateMenuCheckmarks(theme) {
+  function updateThemeCheckmarks(theme) {
     lightModeMenu.textContent = lightModeMenu.textContent.replace(CHECKMARK, '');
     darkModeMenu.textContent = darkModeMenu.textContent.replace(CHECKMARK, '');
 
@@ -86,9 +89,31 @@
     }
   }
 
+  function setFont(font) {
+    document.documentElement.setAttribute('data-font', font);
+    try {
+      localStorage.setItem('font', font);
+    } catch (e) {
+      console.warn('Could not save font preference:', e);
+    }
+    updateFontCheckmarks(font);
+  }
+
+  function updateFontCheckmarks(font) {
+    atkinsonFontMenu.textContent = atkinsonFontMenu.textContent.replace(CHECKMARK, '');
+
+    if (font === 'atkinson') {
+      if (!atkinsonFontMenu.textContent.startsWith(CHECKMARK)) {
+        atkinsonFontMenu.textContent = CHECKMARK + atkinsonFontMenu.textContent;
+      }
+    }
+  }
+
   // Initialize checkmarks on page load
   const currentTheme = document.documentElement.getAttribute('data-theme');
-  updateMenuCheckmarks(currentTheme);
+  const currentFont = document.documentElement.getAttribute('data-font');
+  updateThemeCheckmarks(currentTheme);
+  updateFontCheckmarks(currentFont);
 
   // Add click handlers
   lightModeMenu.addEventListener('click', function(e) {
@@ -99,6 +124,12 @@
   darkModeMenu.addEventListener('click', function(e) {
     e.preventDefault();
     setTheme('mocha');
+  });
+
+  atkinsonFontMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    const currentFont = document.documentElement.getAttribute('data-font');
+    setFont(currentFont === 'atkinson' ? 'default' : 'atkinson');
   });
 
   // Listen for system theme changes
