@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Thoughts on Microsoft's horrible phone: a review and retrospective.
+title: "Thoughts on Microsoft's horrible phone: a review and retrospective."
 date: 2024-09-30
 ---
 
