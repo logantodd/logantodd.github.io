@@ -1,10 +1,10 @@
-title: Your Name
-description: my little corner of the internet
-url: "https://yourusername.github.io"
+title: abby's site
+description: awawawawawa
+url: "https://abbyfluoroethane.github.io"
 baseurl: ""
 
 markdown: kramdown
-permalink: /blog/:year/:month/:day/:title/
+permalink: /blog/:title/
 
 # Collections
 collections:

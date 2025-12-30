@@ -1,45 +1,41 @@
 ---
-title: ~/username
+title: ~/abbyfluoroethane
 ---
 
-# hey, i'm [your name]
+# hey, i'm abby
 
 welcome to my little corner of the internet. i build things, break things, 
 and occasionally write about it.
 
 ## what i do
 
-currently working on [cool project name](#). when i'm not coding, 
-you'll find me reading about obscure programming languages or making coffee 
-that's probably too strong.
+currently working on [cool project name](#). meow nyayayayayana meow mrrp meow.
 
-- backend dev (rust, python, go)
-- occasional frontend when necessary
-- interested in distributed systems, weird databases
+- new glenn
+- f-35 lightning ii
+- being gay, doing crime
 
 ## recent projects
 
 <div class="project">
   <h3>project one</h3>
   <p>
-    a thing that does stuff. built with rust because why not. 
-    <a href="#">github</a> • <a href="#">demo</a>
+    a thing that does stuff.
+    <a href="#">meow</a> • <a href="#">demo</a>
   </p>
 </div>
 
 <div class="project">
   <h3>project two</h3>
   <p>
-    another thing that solves a problem nobody asked about. 
-    features include <code>cool_feature()</code> and vibes.
+    auuuuuughhhhhh
     <a href="#">github</a>
   </p>
 </div>
 
 ## contact
 
-find me on [github](#), [twitter](#), 
-or email at [you@example.com](mailto:you@example.com)
+[me@example.com](mailto:you@example.com)
 
 ---
 
