@@ -198,11 +198,11 @@ html[data-font="atkinson"] .footer {
   color: var(--theme-crust);
 }
 
-/* Ensure links inside dropdown items inherit hover colors */
+/* Ensure links inside dropdown items inherit hover colors - needs !important to override global a:hover */
 .dropdown-item:hover a {
-  color: var(--theme-crust);
-  background: transparent;
-  border-bottom: none;
+  color: var(--theme-crust) !important;
+  background: transparent !important;
+  border-bottom: none !important;
 }
 
 .dropdown-item.disabled {
