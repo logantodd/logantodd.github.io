@@ -189,11 +189,6 @@ html[data-font="atkinson"] .footer {
   width: 100%;
 }
 
-.dropdown-item a:hover {
-  background: transparent;
-  border-bottom: none;
-}
-
 .dropdown-item:last-child {
   border-bottom: none;
 }
@@ -201,6 +196,13 @@ html[data-font="atkinson"] .footer {
 .dropdown-item:hover {
   background: var(--theme-pink);
   color: var(--theme-crust);
+}
+
+/* Ensure links inside dropdown items inherit hover colors */
+.dropdown-item:hover a {
+  color: var(--theme-crust);
+  background: transparent;
+  border-bottom: none;
 }
 
 .dropdown-item.disabled {
