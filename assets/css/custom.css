@@ -63,7 +63,7 @@ body {
   font-family: Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--theme-base);
   color: var(--theme-text);
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1.4;
   padding: 2rem;
   background: linear-gradient(90deg,
@@ -77,11 +77,16 @@ body {
 /* Atkinson Hyperlegible font override */
 html[data-font="atkinson"] body {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
 }
 
 html[data-font="atkinson"] .content p,
 html[data-font="atkinson"] .content li {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[data-font="atkinson"] .footer {
+  font-size: 0.96rem;
 }
 
 .container {
@@ -361,7 +366,7 @@ li::marker {
   border-top: 2px dotted var(--theme-surface1);
   text-align: center;
   color: var(--theme-overlay0);
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 /* About Window Modal */

@@ -18,21 +18,19 @@ i currently work as a technician at blue origin, where i help build new glenn. o
 - fedora linux
 - my wife
 
-## recent projects (placeholders lol)
+## recent projects
 
 <div class="project">
-  <h3>project one</h3>
+  <h3>Liquid Propulsion</h3>
   <p>
-    a thing that does stuff.
-    <a href="#">meow</a> • <a href="#">demo</a>
+    currently developing a 1000N (225 lbf) IPA-nitrous engine because i thought "hey, what if i made my own rocket engine?" fired a subscale hybrid motor to get some hands-on experience with nitrous handling and ground support equipment. lots of CAD work in Onshape and simulation in OnScale, plus making detailed drawings for machining and assembly.
   </p>
 </div>
 
 <div class="project">
-  <h3>project two</h3>
+  <h3>High-Power Rocketry</h3>
   <p>
-    auuuuuughhhhhh
-    <a href="#">github</a>
+    building high power rockets on a budget using some unconventional construction methods. flew the same rocket twice in 24 hours to prove rapid reusability is possible (take that, spacex :p). working towards designing custom avionics boards that mostly work. level 2 certified with the National Association of Rocketry.
   </p>
 </div>
 
