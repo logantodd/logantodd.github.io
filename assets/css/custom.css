@@ -150,6 +150,7 @@ html[data-font="atkinson"] .footer {
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  line-height: 1;
   /* Blocky rainbow gradient - green, yellow, orange, red, mauve, sky */
   background: linear-gradient(
     180deg,
@@ -166,9 +167,9 @@ html[data-font="atkinson"] .footer {
     var(--theme-rainbow-sky) 83.33%,
     var(--theme-rainbow-sky) 100%
   );
-  background-size: 100% 100%;
-  -webkit-background-clip: text;
+  background-origin: border-box;
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
