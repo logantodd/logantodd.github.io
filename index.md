@@ -38,6 +38,6 @@ i currently work as a technician at blue origin, where i help build new glenn. o
 
 ## contact me!
 
-[fedi | dormsoc](https://dorm.social/@abbyfluoroethane)
-[inst*gram](https://instagram.com/abbyfluoroethane)
+[fedi | dormsoc](https://dorm.social/@abbyfluoroethane)<br>
+[inst*gram](https://instagram.com/abbyfluoroethane)<br>
 [email@placeholder.com](#)
