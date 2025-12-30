@@ -189,11 +189,15 @@ html[data-font="atkinson"] .footer {
   width: 100%;
 }
 
-/* Override global a:hover for dropdown links */
+/* Override global a:hover for dropdown links - explicitly set to crust when parent is hovered */
 .dropdown-item a:hover {
-  color: inherit !important;
+  color: var(--theme-text) !important;
   background: transparent !important;
   border-bottom: none !important;
+}
+
+.dropdown-item:hover a:hover {
+  color: var(--theme-crust) !important;
 }
 
 .dropdown-item:last-child {
