@@ -189,6 +189,13 @@ html[data-font="atkinson"] .footer {
   width: 100%;
 }
 
+/* Override global a:hover for dropdown links */
+.dropdown-item a:hover {
+  color: inherit !important;
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
 .dropdown-item:last-child {
   border-bottom: none;
 }
