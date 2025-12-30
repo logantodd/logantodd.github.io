@@ -103,19 +103,26 @@ body {
 }
 
 .menu-item:first-child {
-  background: var(--theme-pink);
-  color: var(--theme-crust);
+  background: var(--theme-base);
+  color: var(--theme-text);
   font-weight: bold;
   padding: 0.4rem 0.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: default;
+}
+
+.menu-item:first-child:hover {
+  background: var(--theme-base);
+  color: var(--theme-text);
 }
 
 .apple-icon {
   width: 14px;
   height: 16px;
   display: inline-block;
+  fill: currentColor;
 }
 
 .menu-item:hover:not(:first-child):not(.app-name) {
