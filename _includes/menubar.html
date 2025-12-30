@@ -36,8 +36,8 @@
   <div class="menu-item">
     View
     <div class="dropdown">
-      <div class="dropdown-item disabled">Light Mode</div>
-      <div class="dropdown-item">Dark Mode</div>
+      <div class="dropdown-item" id="light-mode-menu">Light Mode</div>
+      <div class="dropdown-item" id="dark-mode-menu">Dark Mode</div>
     </div>
   </div>
   <div class="spacer"></div>
@@ -47,6 +47,7 @@
 </nav>
 
 <script>
+  // Clock update function
   function updateClock() {
     const now = new Date();
     const hours = now.getHours() % 12 || 12;
@@ -56,4 +57,62 @@
   }
   updateClock();
   setInterval(updateClock, 1000);
+
+  // Theme switching logic
+  const lightModeMenu = document.getElementById('light-mode-menu');
+  const darkModeMenu = document.getElementById('dark-mode-menu');
+  const CHECKMARK = '\u2713 ';
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {
+      console.warn('Could not save theme preference:', e);
+    }
+    updateMenuCheckmarks(theme);
+  }
+
+  function updateMenuCheckmarks(theme) {
+    lightModeMenu.textContent = lightModeMenu.textContent.replace(CHECKMARK, '');
+    darkModeMenu.textContent = darkModeMenu.textContent.replace(CHECKMARK, '');
+
+    if (theme === 'latte') {
+      if (!lightModeMenu.textContent.startsWith(CHECKMARK)) {
+        lightModeMenu.textContent = CHECKMARK + lightModeMenu.textContent;
+      }
+    } else {
+      if (!darkModeMenu.textContent.startsWith(CHECKMARK)) {
+        darkModeMenu.textContent = CHECKMARK + darkModeMenu.textContent;
+      }
+    }
+  }
+
+  // Initialize checkmarks on page load
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  updateMenuCheckmarks(currentTheme);
+
+  // Add click handlers
+  lightModeMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    setTheme('latte');
+  });
+
+  darkModeMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    setTheme('mocha');
+  });
+
+  // Listen for system theme changes
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      try {
+        if (!localStorage.getItem('theme')) {
+          setTheme(e.matches ? 'mocha' : 'latte');
+        }
+      } catch (err) {
+        setTheme(e.matches ? 'mocha' : 'latte');
+      }
+    });
+  }
 </script>
