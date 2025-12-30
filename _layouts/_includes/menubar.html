@@ -1,0 +1,59 @@
+<nav class="menu-bar">
+  <div class="menu-item">
+    <span class="apple-icon">🍎</span>
+  </div>
+  <div class="menu-item app-name">
+    {{ page.app_name | default: "Portfolio" }}
+  </div>
+  <div class="menu-item">
+    File
+    <div class="dropdown">
+      <div class="dropdown-item">
+        <a href="{{ '/' | relative_url }}">About</a>
+      </div>
+      <div class="divider"></div>
+      <div class="dropdown-item disabled">Close Window</div>
+    </div>
+  </div>
+  <div class="menu-item">
+    Navigate
+    <div class="dropdown">
+      <div class="dropdown-item">
+        <a href="{{ '/' | relative_url }}">Home</a>
+      </div>
+      <div class="dropdown-item">
+        <a href="{{ '/projects' | relative_url }}">Projects</a>
+      </div>
+      <div class="dropdown-item">
+        <a href="{{ '/blog' | relative_url }}">Blog</a>
+      </div>
+      <div class="divider"></div>
+      <div class="dropdown-item">
+        <a href="{{ '/contact' | relative_url }}">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="menu-item">
+    View
+    <div class="dropdown">
+      <div class="dropdown-item disabled">Light Mode</div>
+      <div class="dropdown-item">Dark Mode</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="menu-item">
+    <span id="clock">--:--</span>
+  </div>
+</nav>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const hours = now.getHours() % 12 || 12;
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>

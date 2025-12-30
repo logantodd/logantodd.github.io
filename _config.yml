@@ -1,0 +1,33 @@
+title: Your Name
+description: my little corner of the internet
+url: "https://yourusername.github.io"
+baseurl: ""
+
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "default"
+      app_name: "Blog"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "default"
+      app_name: "Projects"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      app_name: "Portfolio"
