@@ -403,3 +403,142 @@ li::marker {
   margin: 0.25rem 0;
   font-size: 0.95rem;
 }
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Reduce body padding */
+  body {
+    padding: 1rem;
+    font-size: 20px;
+  }
+
+  /* Hide clock on mobile */
+  #clock {
+    display: none;
+  }
+
+  /* Reduce menu bar font size */
+  .menu-bar {
+    font-size: 0.85rem;
+  }
+
+  /* Reduce menu item padding */
+  .menu-item {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .menu-item.app-name {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .menu-item:first-child {
+    padding: 0.4rem 0.5rem;
+  }
+
+  /* Reduce content padding */
+  .content {
+    padding: 1.5rem;
+  }
+
+  /* Reduce dropdown width */
+  .dropdown {
+    min-width: 150px;
+  }
+
+  /* Adjust window for mobile */
+  .window {
+    box-shadow: 2px 2px 0 var(--theme-surface0);
+  }
+
+  /* Reduce title bar padding */
+  .title-bar {
+    padding: 0.4rem;
+  }
+
+  .title-bar .title {
+    font-size: 1rem;
+    padding: 0.2rem 0.8rem;
+  }
+
+  /* Reduce heading sizes */
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  /* About window adjustments */
+  .about-window {
+    width: 90%;
+  }
+
+  .about-content {
+    padding: 1.5rem;
+  }
+
+  .about-image img {
+    max-width: 96px !important;
+  }
+
+  /* Reduce project padding */
+  .project {
+    padding: 0.75rem;
+  }
+
+  /* Reduce footer size */
+  .footer {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  body {
+    padding: 0.5rem;
+    font-size: 18px;
+  }
+
+  .menu-bar {
+    font-size: 0.8rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .title-bar .title {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  /* Make dropdown items more touch-friendly */
+  .dropdown-item {
+    padding: 0.6rem 1rem;
+  }
+
+  /* Adjust about window for very small screens */
+  .about-content {
+    padding: 1rem;
+  }
+
+  .about-image img {
+    max-width: 80px !important;
+  }
+
+  .about-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .about-text p {
+    font-size: 0.85rem;
+  }
+}
