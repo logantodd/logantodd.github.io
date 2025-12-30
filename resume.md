@@ -18,12 +18,14 @@ Aerospace-grade mechanic building a road to space. Extensive experience in high-
 - Interpret engineering drawings and 3D models in Creo.
 - Perform avionics work including soldering, wire harness installation, inspections, and repairs.
 - Contributed code bugfixes to internal software products.
+
 ### Head of Design, Tahlequah Daily Press
 #### 2022 - 2024
 - Coordinated editorial direction and production of the Tahlequah Daily Press and Claremore Progress.
 - Designed two newspapers daily and 10 magazines yearly in Adobe Creative Cloud suite.
 - Overhauled workflows, leading to an 88% greater ability to meet deadlines for daily print products.
 - Managed social media following of over 38,000.
+
 ### Multimedia Artist, Freelance
 #### 2017 - Present
 - Dynamically applies skills to photography, graphic design, UI design, and 3D modelling.
@@ -36,6 +38,7 @@ Aerospace-grade mechanic building a road to space. Extensive experience in high-
 - Demonstrated rapid reusability by flying the same rocket twice in a 24-hour period.
 - Designed, assembled, and debugged custom avionics PCBs.
 - Level 2 High Power certified.
+
 ### Liquid Propulsion
 #### 2023 - Present
 - In development 1000N (225 lbf) IPA-nitrous engine.
