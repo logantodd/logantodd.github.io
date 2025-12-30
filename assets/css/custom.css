@@ -146,9 +146,9 @@ html[data-font="atkinson"] .footer {
 }
 
 .apple-icon {
-  width: 14px;
-  height: 16px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   /* Blocky rainbow gradient - green, yellow, orange, red, mauve, sky */
   background: linear-gradient(
@@ -166,6 +166,7 @@ html[data-font="atkinson"] .footer {
     var(--theme-rainbow-sky) 83.33%,
     var(--theme-rainbow-sky) 100%
   );
+  background-size: 100% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
