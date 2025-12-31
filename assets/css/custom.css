@@ -145,29 +145,35 @@ html[data-font="atkinson"] .footer {
   color: var(--theme-text);
 }
 
-.apple-icon strong {
-  font-weight: bold;
+.apple-icon img {
+  width: 20px;
+  height: auto;
   display: block;
-  /* Blocky rainbow gradient - green, yellow, orange, red, mauve, sky */
-  background: linear-gradient(
-    180deg,
-    var(--theme-rainbow-green) 0%,
-    var(--theme-rainbow-green) 16.67%,
-    var(--theme-rainbow-yellow) 16.67%,
-    var(--theme-rainbow-yellow) 33.33%,
-    var(--theme-rainbow-peach) 33.33%,
-    var(--theme-rainbow-peach) 50%,
-    var(--theme-rainbow-red) 50%,
-    var(--theme-rainbow-red) 66.67%,
-    var(--theme-rainbow-mauve) 66.67%,
-    var(--theme-rainbow-mauve) 83.33%,
-    var(--theme-rainbow-sky) 83.33%,
-    var(--theme-rainbow-sky) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+}
+
+/* Happy Mac SVG color theming */
+.apple-icon img[src*="Happy_Mac"] {
+  filter: brightness(0) saturate(100%) invert(var(--icon-invert, 0%)) sepia(var(--icon-sepia, 0%)) saturate(var(--icon-saturate, 100%)) hue-rotate(var(--icon-hue, 0deg)) brightness(var(--icon-brightness, 100%)) contrast(var(--icon-contrast, 100%));
+}
+
+:root {
+  /* Mocha theme - slightly brighter for dark background */
+  --icon-invert: 95%;
+  --icon-sepia: 10%;
+  --icon-saturate: 120%;
+  --icon-hue: 280deg;
+  --icon-brightness: 100%;
+  --icon-contrast: 100%;
+}
+
+html[data-theme="latte"] {
+  /* Latte theme - darker for light background */
+  --icon-invert: 20%;
+  --icon-sepia: 10%;
+  --icon-saturate: 100%;
+  --icon-hue: 280deg;
+  --icon-brightness: 90%;
+  --icon-contrast: 100%;
 }
 
 /* Only highlight when active (clicked), not on hover - matches macOS */
