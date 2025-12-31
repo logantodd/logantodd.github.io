@@ -107,19 +107,42 @@ body {
   background-size: 22px 22px;
 }
 
-/* Atkinson Hyperlegible font override */
+/* Atkinson Hyperlegible font override - full site-wide implementation */
 html[data-font="atkinson"] body {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 24px;
+  font-size: 22px;
+}
+
+html[data-font="atkinson"] h1,
+html[data-font="atkinson"] h2,
+html[data-font="atkinson"] h3 {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+}
+
+html[data-font="atkinson"] .menu-bar,
+html[data-font="atkinson"] .menu-item,
+html[data-font="atkinson"] .dropdown-item {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+}
+
+html[data-font="atkinson"] .title-bar .title {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
 }
 
 html[data-font="atkinson"] .content p,
-html[data-font="atkinson"] .content li {
+html[data-font="atkinson"] .content li,
+html[data-font="atkinson"] .content a,
+html[data-font="atkinson"] .content code {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html[data-font="atkinson"] .footer {
-  font-size: 0.96rem;
+  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.92rem;
+}
+
+html[data-font="atkinson"] .project {
+  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .container {
