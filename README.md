@@ -57,6 +57,23 @@ Edit [`_config.yml`](_config.yml) to customize:
 - Permalink structure
 - Collection settings
 
+### Last.fm Widget
+
+To add the Last.fm widget to a page, include it in your markdown:
+
+```markdown
+{% include lastfm-widget.html %}
+```
+
+Configure your Last.fm credentials in `_config.yml`:
+```yaml
+lastfm:
+  username: "your_username"
+  api_key: "your_api_key"
+```
+
+Get a free API key from [Last.fm API](https://www.last.fm/api/account/create).
+
 ## Acknowledgements
 
 - [**Jekyll**](https://github.com/jekyll/jekyll): Static site generator
