@@ -41,6 +41,27 @@ html[data-theme="latte"] {
   --theme-rainbow-sky: var(--ctp-latte-sky);
 }
 
+/* Monochrome theme - classic black and white */
+html[data-theme="monochrome"] {
+  --theme-base: #ffffff;
+  --theme-text: #000000;
+  --theme-mantle: #f5f5f5;
+  --theme-surface0: #e0e0e0;
+  --theme-surface1: #d0d0d0;
+  --theme-overlay0: #808080;
+  --theme-pink: #000000;
+  --theme-mauve: #404040;
+  --theme-crust: #fafafa;
+  --theme-red: #000000;
+  --theme-green: #000000;
+  --theme-rainbow-green: #1a1a1a;
+  --theme-rainbow-yellow: #2a2a2a;
+  --theme-rainbow-peach: #3a3a3a;
+  --theme-rainbow-red: #4a4a4a;
+  --theme-rainbow-mauve: #5a5a5a;
+  --theme-rainbow-sky: #6a6a6a;
+}
+
 :root {
   /* Override system7 color tokens with theme variables */
   --sys-color-white: var(--theme-base);
