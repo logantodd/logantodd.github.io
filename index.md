@@ -18,6 +18,10 @@ i currently work as a technician at blue origin, where i help build new glenn. o
 - fedora linux
 - my wife
 
+## what i'm listening to
+
+{% include lastfm-widget.html %}
+
 ## recent projects
 
 <div class="project">
