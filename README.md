@@ -1,12 +1,6 @@
-# abbyfluoroethane.github.io
+# abby's website
 
-A personal portfolio and blog site built with Jekyll, featuring a minimalist design and Last.fm integration.
-
-## Description
-
-This is my personal website hosted on GitHub Pages, showcasing my work in aerospace, rocketry, and engineering. The site includes a blog for technical posts and musings, a projects section highlighting my rocket propulsion and high-power rocketry work, and a live Last.fm widget showing what I'm currently listening to.
-
-Built with Jekyll for static site generation, the site features a clean, responsive design with a custom navigation system and integrated music tracking.
+This is my personal website hosted on GitHub Pages. The site includes a blog for musings, a projects section highlighting my rocketry work, and a live Last.fm widget showing what I'm currently listening to.
 
 ## Features
 
