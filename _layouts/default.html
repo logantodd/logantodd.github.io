@@ -6,18 +6,79 @@
 <body>
   <div class="container">
     {% include menubar.html %}
-    
+
     <div class="window">
       <div class="title-bar">
         <div class="title">{{ page.title | default: site.title }}</div>
         <div style="width: 16px;"></div>
       </div>
-      
+
       <div class="content">
         {{ content }}
-        
+
         <div class="footer">
-          made on earth by humans | 2025 abby bigaouette
+          <div class="buttons-88x31">
+            <!-- Add your 88x31 buttons here -->
+            <!-- Example: <a href="https://example.com"><img src="{{ '/assets/images/buttons/button.gif' | relative_url }}" alt="Button" width="88" height="31"></a> -->
+             <a href="https://friends.dorm.social"><img src="{{ '/assets/images/buttons/dorm.gif' | relative_url }}" alt="dorm" width="88" height="31"></a>
+             <a href="https://fedoraproject.org"><img src="{{ '/assets/images/buttons/fedora.png' | relative_url }}" alt="fedora" width="88" height="31"></a>
+             <img src="{{ '/assets/images/buttons/macos.gif' | relative_url }}" alt="Button" width="88" height="31">
+             <a href="https://zen-browser.app"><img src="{{ '/assets/images/buttons/zenbrowser1.gif' | relative_url }}" alt="Button" width="88" height="31"></a>
+             <a href="https://zen-browser.app"><img src="{{ '/assets/images/buttons/zenbrowser2.gif' | relative_url }}" alt="Button" width="88" height="31"></a>
+          </div>
+          <div class="footer-text">
+            made on earth by humans | 2025 abby bigaouette
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Window Modal -->
+  <div id="about-overlay" class="about-overlay" style="display: none;">
+    <div class="about-window">
+      <div class="title-bar">
+        <div class="window-close" id="about-close"></div>
+        <div class="title">About</div>
+        <div style="width: 16px;"></div>
+      </div>
+
+      <div class="about-content">
+        <div class="about-image">
+          <!-- You can add an image here -->
+          <img src="{{ '/assets/images/about-icon.png' | relative_url }}" alt="About Icon" style="max-width: 128px; height: auto;">
+        </div>
+        <div class="about-text">
+          <h3>{{ site.title | default: "Portfolio" }}</h3>
+          <p>version 1.0-preview</p>
+          <p>made on earth by humans</p>
+          <p>2025 abby bigaouette</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acknowledgements Window Modal -->
+  <div id="acknowledgements-overlay" class="about-overlay" style="display: none;">
+    <div class="about-window">
+      <div class="title-bar">
+        <div class="window-close" id="acknowledgements-close"></div>
+        <div class="title">Acknowledgements</div>
+        <div style="width: 16px;"></div>
+      </div>
+
+      <div class="about-content">
+        <div class="about-text">
+          <h3>built with</h3>
+          <p><strong>Jekyll</strong> - static site generator</p>
+          <p><strong>Catppuccin</strong> - soothing pastel theme</p>
+          <p><strong>system7.css</strong> - classic Mac OS inspired CSS</p>
+          <p><strong>Atkinson Hyperlegible</strong> - accessible font</p>
+          <p><strong>Last.fm API</strong> - music tracking</p>
+          <div class="divider" style="margin: 1rem 0;"></div>
+          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--theme-overlay0);">
+            hosted on GitHub Pages
+          </p>
         </div>
       </div>
     </div>

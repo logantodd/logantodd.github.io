@@ -1,0 +1,369 @@
+{% assign username = include.username | default: site.lastfm.username %}
+{% assign api_key = include.api_key | default: site.lastfm.api_key %}
+
+<div class="lastfm-widget">
+  <div class="lastfm-content">
+    <div class="lastfm-artwork">
+      <img id="lastfm-album-art" src="" alt="Album artwork">
+    </div>
+
+    <div class="lastfm-info">
+      <div class="lastfm-status">
+        <span class="status-indicator" id="lastfm-status-indicator"></span>
+        <span class="status-text" id="lastfm-status-text">Loading...</span>
+      </div>
+
+      <div class="lastfm-track">
+        <div class="track-name" id="lastfm-track-name">—</div>
+        <div class="track-artist" id="lastfm-artist-name">—</div>
+        <div class="track-album" id="lastfm-album-name">—</div>
+      </div>
+
+      <a href="#" id="lastfm-link" class="lastfm-button" target="_blank" rel="noopener noreferrer">
+        View on Last.fm
+      </a>
+    </div>
+  </div>
+
+  <div class="lastfm-message" id="lastfm-error" style="display: none;">
+    <span id="lastfm-error-text"></span>
+  </div>
+</div>
+
+<style>
+.lastfm-widget {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: var(--theme-mantle);
+  border: 2px solid var(--theme-surface1);
+}
+
+.lastfm-content {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.lastfm-artwork {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--theme-surface0);
+  background: var(--theme-crust);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lastfm-artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lastfm-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lastfm-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--theme-overlay0);
+  font-family: Chicago, serif;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--theme-overlay0);
+  display: inline-block;
+}
+
+.status-indicator.now-playing {
+  background: var(--theme-green);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.lastfm-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.track-name {
+  font-family: Chicago, serif;
+  font-size: 1.1rem;
+  color: var(--theme-mauve);
+  font-weight: bold;
+}
+
+.track-artist {
+  color: var(--theme-text);
+  font-size: 0.95rem;
+}
+
+.track-album {
+  color: var(--theme-overlay0);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.lastfm-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--theme-surface0);
+  border: 2px solid var(--theme-surface1);
+  color: var(--theme-pink) !important;
+  text-decoration: none !important;
+  border-bottom: 2px solid var(--theme-surface1) !important;
+  font-family: Chicago, serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-end;
+  box-shadow: 2px 2px 0 var(--theme-surface0);
+}
+
+.lastfm-button:hover {
+  background: var(--theme-pink) !important;
+  color: var(--theme-crust) !important;
+  box-shadow: 3px 3px 0 var(--theme-surface1);
+}
+
+.lastfm-message {
+  padding: 1rem;
+  text-align: center;
+  color: var(--theme-overlay0);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .lastfm-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .lastfm-artwork {
+    width: 100px;
+    height: 100px;
+  }
+
+  .lastfm-info {
+    align-items: center;
+  }
+
+  .lastfm-status {
+    justify-content: center;
+  }
+
+  .lastfm-button {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .lastfm-widget {
+    padding: 0.75rem;
+  }
+
+  .lastfm-artwork {
+    width: 80px;
+    height: 80px;
+  }
+
+  .track-name {
+    font-size: 1rem;
+  }
+
+  .lastfm-button {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  const LASTFM_API_URL = 'https://ws.audioscrobbler.com/2.0/';
+  const USERNAME = '{{ username }}';
+  const API_KEY = '{{ api_key }}';
+  const UPDATE_INTERVAL = 120000; // 2 minutes
+  const CACHE_KEY = 'lastfm_recent_track';
+  const CACHE_TIMESTAMP_KEY = 'lastfm_cache_time';
+
+  let elements = {};
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeElements();
+
+    const cached = getCachedData();
+    if (cached) {
+      updateUI(cached);
+    }
+
+    fetchAndUpdate();
+    setInterval(fetchAndUpdate, UPDATE_INTERVAL);
+  });
+
+  function initializeElements() {
+    elements = {
+      artwork: document.getElementById('lastfm-album-art'),
+      trackName: document.getElementById('lastfm-track-name'),
+      artistName: document.getElementById('lastfm-artist-name'),
+      albumName: document.getElementById('lastfm-album-name'),
+      statusIndicator: document.getElementById('lastfm-status-indicator'),
+      statusText: document.getElementById('lastfm-status-text'),
+      link: document.getElementById('lastfm-link'),
+      error: document.getElementById('lastfm-error'),
+      errorText: document.getElementById('lastfm-error-text'),
+      content: document.querySelector('.lastfm-content')
+    };
+  }
+
+  function fetchAndUpdate() {
+    const url = `${LASTFM_API_URL}?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=1`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (!data.recenttracks || !data.recenttracks.track || data.recenttracks.track.length === 0) {
+          showError('No recent tracks found');
+          return;
+        }
+
+        const track = Array.isArray(data.recenttracks.track)
+          ? data.recenttracks.track[0]
+          : data.recenttracks.track;
+
+        const trackData = parseTrackData(track);
+        setCachedData(trackData);
+        updateUI(trackData);
+        hideError();
+      })
+      .catch(error => {
+        console.error('Last.fm fetch error:', error);
+
+        const cached = getCachedData();
+        if (cached) {
+          updateUI(cached);
+        } else {
+          showError('Unable to load track data');
+        }
+      });
+  }
+
+  function parseTrackData(track) {
+    const isNowPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+
+    return {
+      name: track.name || 'Unknown Track',
+      artist: track.artist && track.artist['#text'] ? track.artist['#text'] : 'Unknown Artist',
+      album: track.album && track.album['#text'] ? track.album['#text'] : 'Unknown Album',
+      url: track.url || '#',
+      image: getAlbumArtwork(track),
+      nowPlaying: isNowPlaying
+    };
+  }
+
+  function getAlbumArtwork(track) {
+    const images = track.image || [];
+    const preferredSizes = ['extralarge', 'large', 'medium'];
+
+    for (const size of preferredSizes) {
+      const img = images.find(i => i.size === size);
+      if (img && img['#text']) {
+        return img['#text'];
+      }
+    }
+
+    return 'data:image/svg+xml,' + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">' +
+      '<rect width="120" height="120" fill="#1e1e2e"/>' +
+      '<text x="60" y="60" text-anchor="middle" dy=".3em" fill="#6c7086" font-size="12">No Image</text>' +
+      '</svg>'
+    );
+  }
+
+  function updateUI(trackData) {
+    if (!elements.artwork) return;
+
+    elements.artwork.src = trackData.image;
+    elements.artwork.alt = trackData.album;
+    elements.trackName.textContent = trackData.name;
+    elements.artistName.textContent = trackData.artist;
+    elements.albumName.textContent = trackData.album;
+    elements.link.href = trackData.url;
+
+    if (trackData.nowPlaying) {
+      elements.statusIndicator.classList.add('now-playing');
+      elements.statusText.textContent = 'Now Playing';
+    } else {
+      elements.statusIndicator.classList.remove('now-playing');
+      elements.statusText.textContent = 'Last Played';
+    }
+  }
+
+  function getCachedData() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      const timestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+
+      if (cached && timestamp) {
+        const age = Date.now() - parseInt(timestamp);
+        if (age < UPDATE_INTERVAL) {
+          return JSON.parse(cached);
+        }
+      }
+    } catch (e) {
+      console.warn('Cache read failed:', e);
+    }
+    return null;
+  }
+
+  function setCachedData(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+    } catch (e) {
+      console.warn('Cache write failed:', e);
+    }
+  }
+
+  function showError(message) {
+    if (elements.error && elements.errorText && elements.content) {
+      elements.errorText.textContent = message;
+      elements.error.style.display = 'block';
+      elements.content.style.display = 'none';
+    }
+  }
+
+  function hideError() {
+    if (elements.error && elements.content) {
+      elements.error.style.display = 'none';
+      elements.content.style.display = 'flex';
+    }
+  }
+})();
+</script>

@@ -1,18 +1,13 @@
 <nav class="menu-bar">
-  <div class="menu-item">
-    <span class="apple-icon"></span>
-  </div>
   <div class="menu-item app-name">
-    {{ page.app_name | default: "Portfolio" }}
+    {{ page.app_name | default: "$AppName" }}
   </div>
   <div class="menu-item">
     File
     <div class="dropdown">
-      <div class="dropdown-item">
-        <a href="{{ '/' | relative_url }}">About</a>
-      </div>
+      <div class="dropdown-item" id="about-menu-item">About</div>
       <div class="divider"></div>
-      <div class="dropdown-item disabled">Close Window</div>
+      <div class="dropdown-item" id="close-window-menu-item">Close Window</div>
     </div>
   </div>
   <div class="menu-item">
@@ -29,15 +24,30 @@
       </div>
       <div class="divider"></div>
       <div class="dropdown-item">
-        <a href="{{ '/contact' | relative_url }}">Contact</a>
+        <a href="{{ '/resume' | relative_url }}">Resume</a>
       </div>
     </div>
   </div>
   <div class="menu-item">
     View
     <div class="dropdown">
-      <div class="dropdown-item disabled">Light Mode</div>
-      <div class="dropdown-item">Dark Mode</div>
+      <div class="dropdown-item" id="light-mode-menu">Light Mode</div>
+      <div class="dropdown-item" id="dark-mode-menu">Dark Mode</div>
+      <div class="divider"></div>
+      <div class="dropdown-item" id="atkinson-font-menu">Atkinson Hyperlegible</div>
+    </div>
+  </div>
+  <div class="menu-item">
+    Help
+    <div class="dropdown">
+      <div class="dropdown-item" id="acknowledgements-menu-item">Acknowledgements</div>
+      <div class="divider"></div>
+      <div class="dropdown-item">
+        <a href="https://github.com/abbyfluoroethane/abbyfluoroethane.github.io/issues" target="_blank">Report a Bug</a>
+      </div>
+      <div class="dropdown-item">
+        <a href="https://github.com/abbyfluoroethane/abbyfluoroethane.github.io" target="_blank">View Source</a>
+      </div>
     </div>
   </div>
   <div class="spacer"></div>
@@ -47,6 +57,7 @@
 </nav>
 
 <script>
+  // Clock update function
   function updateClock() {
     const now = new Date();
     const hours = now.getHours() % 12 || 12;
@@ -56,4 +67,252 @@
   }
   updateClock();
   setInterval(updateClock, 1000);
+
+  // Safari/iOS touch-friendly menu handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = document.querySelectorAll('.menu-item:not(.app-name):not(:first-child):not(:has(#clock))');
+    let currentOpenMenu = null;
+
+    menuItems.forEach(item => {
+      const dropdown = item.querySelector('.dropdown');
+      if (dropdown) {
+        item.addEventListener('click', function(e) {
+          e.stopPropagation();
+
+          // Close other menus
+          if (currentOpenMenu && currentOpenMenu !== item) {
+            currentOpenMenu.classList.remove('active');
+          }
+
+          // Toggle current menu
+          item.classList.toggle('active');
+          currentOpenMenu = item.classList.contains('active') ? item : null;
+
+          // Position dropdown to prevent overflow (Firefox Android compatible)
+          if (item.classList.contains('active')) {
+            const menuBar = item.closest('.menu-bar');
+            const menuBarRect = menuBar.getBoundingClientRect();
+            const itemRect = item.getBoundingClientRect();
+            const dropdownWidth = dropdown.offsetWidth;
+            const viewportWidth = window.innerWidth;
+
+            // Calculate position relative to menu bar
+            let left = itemRect.left - 2;
+
+            // If dropdown would overflow right edge, shift it left
+            if (left + dropdownWidth > viewportWidth - 8) {
+              left = viewportWidth - dropdownWidth - 8;
+            }
+
+            // Don't go past left edge
+            if (left < 8) {
+              left = 8;
+            }
+
+            // Use menu bar bottom as reference point instead of item bottom
+            const top = menuBarRect.bottom;
+
+            dropdown.style.top = top + 'px';
+            dropdown.style.left = left + 'px';
+          }
+        });
+      }
+    });
+
+    // Close menus when clicking outside
+    document.addEventListener('click', function() {
+      menuItems.forEach(item => item.classList.remove('active'));
+      currentOpenMenu = null;
+    });
+  });
+
+  // Theme switching logic
+  const lightModeMenu = document.getElementById('light-mode-menu');
+  const darkModeMenu = document.getElementById('dark-mode-menu');
+  const atkinsonFontMenu = document.getElementById('atkinson-font-menu');
+  const CHECKMARK = '\u2713 ';
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {
+      console.warn('Could not save theme preference:', e);
+    }
+    updateThemeCheckmarks(theme);
+  }
+
+  function updateThemeCheckmarks(theme) {
+    lightModeMenu.textContent = lightModeMenu.textContent.replace(CHECKMARK, '');
+    darkModeMenu.textContent = darkModeMenu.textContent.replace(CHECKMARK, '');
+
+    if (theme === 'latte') {
+      if (!lightModeMenu.textContent.startsWith(CHECKMARK)) {
+        lightModeMenu.textContent = CHECKMARK + lightModeMenu.textContent;
+      }
+    } else {
+      if (!darkModeMenu.textContent.startsWith(CHECKMARK)) {
+        darkModeMenu.textContent = CHECKMARK + darkModeMenu.textContent;
+      }
+    }
+  }
+
+  function setFont(font) {
+    document.documentElement.setAttribute('data-font', font);
+    try {
+      localStorage.setItem('font', font);
+    } catch (e) {
+      console.warn('Could not save font preference:', e);
+    }
+    updateFontCheckmarks(font);
+  }
+
+  function updateFontCheckmarks(font) {
+    atkinsonFontMenu.textContent = atkinsonFontMenu.textContent.replace(CHECKMARK, '');
+
+    if (font === 'atkinson') {
+      if (!atkinsonFontMenu.textContent.startsWith(CHECKMARK)) {
+        atkinsonFontMenu.textContent = CHECKMARK + atkinsonFontMenu.textContent;
+      }
+    }
+  }
+
+  // Initialize checkmarks on page load
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const currentFont = document.documentElement.getAttribute('data-font');
+  updateThemeCheckmarks(currentTheme);
+  updateFontCheckmarks(currentFont);
+
+  // Add click handlers
+  lightModeMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    setTheme('latte');
+  });
+
+  darkModeMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    setTheme('mocha');
+  });
+
+  atkinsonFontMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    const currentFont = document.documentElement.getAttribute('data-font');
+    setFont(currentFont === 'atkinson' ? 'default' : 'atkinson');
+  });
+
+  // Listen for system theme changes
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      try {
+        if (!localStorage.getItem('theme')) {
+          setTheme(e.matches ? 'mocha' : 'latte');
+        }
+      } catch (err) {
+        setTheme(e.matches ? 'mocha' : 'latte');
+      }
+    });
+  }
+
+  // About window functionality
+  function showAboutWindow() {
+    const overlay = document.getElementById('about-overlay');
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
+  }
+
+  function hideAboutWindow() {
+    const overlay = document.getElementById('about-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
+  }
+
+  // Acknowledgements window functionality
+  function showAcknowledgementsWindow() {
+    const overlay = document.getElementById('acknowledgements-overlay');
+    if (overlay) {
+      overlay.style.display = 'flex';
+    }
+  }
+
+  function hideAcknowledgementsWindow() {
+    const overlay = document.getElementById('acknowledgements-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
+  }
+
+  // Wait for DOM to be ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // About menu item - show About window
+    const aboutMenuItem = document.getElementById('about-menu-item');
+    if (aboutMenuItem) {
+      aboutMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        showAboutWindow();
+      });
+    }
+
+    // Acknowledgements menu item - show Acknowledgements window
+    const acknowledgementsMenuItem = document.getElementById('acknowledgements-menu-item');
+    if (acknowledgementsMenuItem) {
+      acknowledgementsMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        showAcknowledgementsWindow();
+      });
+    }
+
+    // Close Window menu item - go to home
+    const closeWindowMenuItem = document.getElementById('close-window-menu-item');
+    if (closeWindowMenuItem) {
+      // Check if we're on the home page
+      const currentPath = window.location.pathname;
+      const homePath = '{{ "/" | relative_url }}';
+      const isHomePage = currentPath === homePath || currentPath === homePath + 'index.html';
+
+      if (isHomePage) {
+        // Disable on home page
+        closeWindowMenuItem.classList.add('disabled');
+      } else {
+        // Enable on other pages
+        closeWindowMenuItem.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = homePath;
+        });
+      }
+    }
+
+    // About close button
+    const aboutClose = document.getElementById('about-close');
+    if (aboutClose) {
+      aboutClose.addEventListener('click', hideAboutWindow);
+    }
+
+    // Acknowledgements close button
+    const acknowledgementsClose = document.getElementById('acknowledgements-close');
+    if (acknowledgementsClose) {
+      acknowledgementsClose.addEventListener('click', hideAcknowledgementsWindow);
+    }
+
+    // Click overlay to close About
+    const aboutOverlay = document.getElementById('about-overlay');
+    if (aboutOverlay) {
+      aboutOverlay.addEventListener('click', function(e) {
+        if (e.target === aboutOverlay) {
+          hideAboutWindow();
+        }
+      });
+    }
+
+    // Click overlay to close Acknowledgements
+    const acknowledgementsOverlay = document.getElementById('acknowledgements-overlay');
+    if (acknowledgementsOverlay) {
+      acknowledgementsOverlay.addEventListener('click', function(e) {
+        if (e.target === acknowledgementsOverlay) {
+          hideAcknowledgementsWindow();
+        }
+      });
+    }
+  });
 </script>
