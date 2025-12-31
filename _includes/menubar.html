@@ -90,6 +90,29 @@
           // Toggle current menu
           item.classList.toggle('active');
           currentOpenMenu = item.classList.contains('active') ? item : null;
+
+          // Position dropdown to prevent overflow
+          if (item.classList.contains('active')) {
+            const rect = item.getBoundingClientRect();
+            const dropdownWidth = dropdown.offsetWidth;
+            const viewportWidth = window.innerWidth;
+
+            // Start with left-aligned position
+            let left = rect.left - 2;
+
+            // If dropdown would overflow right edge, shift it left
+            if (left + dropdownWidth > viewportWidth - 8) {
+              left = viewportWidth - dropdownWidth - 8;
+            }
+
+            // Don't go past left edge
+            if (left < 8) {
+              left = 8;
+            }
+
+            dropdown.style.top = rect.bottom + 'px';
+            dropdown.style.left = left + 'px';
+          }
         });
       }
     });
