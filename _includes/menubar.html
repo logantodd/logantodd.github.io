@@ -88,14 +88,16 @@
           item.classList.toggle('active');
           currentOpenMenu = item.classList.contains('active') ? item : null;
 
-          // Position dropdown to prevent overflow
+          // Position dropdown to prevent overflow (Firefox Android compatible)
           if (item.classList.contains('active')) {
-            const rect = item.getBoundingClientRect();
+            const menuBar = item.closest('.menu-bar');
+            const menuBarRect = menuBar.getBoundingClientRect();
+            const itemRect = item.getBoundingClientRect();
             const dropdownWidth = dropdown.offsetWidth;
             const viewportWidth = window.innerWidth;
 
-            // Start with left-aligned position
-            let left = rect.left - 2;
+            // Calculate position relative to menu bar
+            let left = itemRect.left - 2;
 
             // If dropdown would overflow right edge, shift it left
             if (left + dropdownWidth > viewportWidth - 8) {
@@ -107,7 +109,10 @@
               left = 8;
             }
 
-            dropdown.style.top = rect.bottom + 'px';
+            // Use menu bar bottom as reference point instead of item bottom
+            const top = menuBarRect.bottom;
+
+            dropdown.style.top = top + 'px';
             dropdown.style.left = left + 'px';
           }
         });
