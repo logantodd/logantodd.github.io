@@ -33,6 +33,7 @@
     <div class="dropdown">
       <div class="dropdown-item" id="light-mode-menu">Light Mode</div>
       <div class="dropdown-item" id="dark-mode-menu">Dark Mode</div>
+      <div class="dropdown-item" id="monochrome-mode-menu">Monochrome Mode</div>
       <div class="divider"></div>
       <div class="dropdown-item" id="atkinson-font-menu">Atkinson Hyperlegible</div>
     </div>
@@ -129,6 +130,7 @@
   // Theme switching logic
   const lightModeMenu = document.getElementById('light-mode-menu');
   const darkModeMenu = document.getElementById('dark-mode-menu');
+  const monochromeModeMenu = document.getElementById('monochrome-mode-menu');
   const atkinsonFontMenu = document.getElementById('atkinson-font-menu');
   const CHECKMARK = '\u2713 ';
 
@@ -145,10 +147,15 @@
   function updateThemeCheckmarks(theme) {
     lightModeMenu.textContent = lightModeMenu.textContent.replace(CHECKMARK, '');
     darkModeMenu.textContent = darkModeMenu.textContent.replace(CHECKMARK, '');
+    monochromeModeMenu.textContent = monochromeModeMenu.textContent.replace(CHECKMARK, '');
 
     if (theme === 'latte') {
       if (!lightModeMenu.textContent.startsWith(CHECKMARK)) {
         lightModeMenu.textContent = CHECKMARK + lightModeMenu.textContent;
+      }
+    } else if (theme === 'monochrome') {
+      if (!monochromeModeMenu.textContent.startsWith(CHECKMARK)) {
+        monochromeModeMenu.textContent = CHECKMARK + monochromeModeMenu.textContent;
       }
     } else {
       if (!darkModeMenu.textContent.startsWith(CHECKMARK)) {
@@ -192,6 +199,11 @@
   darkModeMenu.addEventListener('click', function(e) {
     e.preventDefault();
     setTheme('mocha');
+  });
+
+  monochromeModeMenu.addEventListener('click', function(e) {
+    e.preventDefault();
+    setTheme('monochrome');
   });
 
   atkinsonFontMenu.addEventListener('click', function(e) {

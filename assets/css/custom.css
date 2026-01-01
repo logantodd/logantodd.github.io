@@ -1,3 +1,30 @@
+/* Staging banner - only visible in development */
+.staging-banner {
+  background: #dc2626;
+  color: #ffffff;
+  text-align: center;
+  padding: 0.5rem 0;
+  font-family: Chicago, serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #991b1b;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 1000;
+  margin: 0;
+}
+
+body {
+  padding-top: 0;
+}
+
+body:has(.staging-banner[style*="display: block"]) {
+  padding-top: 2.5rem;
+}
+
 /* Catppuccin Theme Overrides */
 :root {
   /* Theme-aware color mapping - default to Mocha (dark) */
@@ -39,6 +66,27 @@ html[data-theme="latte"] {
   --theme-rainbow-red: var(--ctp-latte-red);
   --theme-rainbow-mauve: var(--ctp-latte-mauve);
   --theme-rainbow-sky: var(--ctp-latte-sky);
+}
+
+/* Monochrome theme - classic black and white */
+html[data-theme="monochrome"] {
+  --theme-base: #ffffff;
+  --theme-text: #000000;
+  --theme-mantle: #f5f5f5;
+  --theme-surface0: #e0e0e0;
+  --theme-surface1: #d0d0d0;
+  --theme-overlay0: #808080;
+  --theme-pink: #000000;
+  --theme-mauve: #404040;
+  --theme-crust: #fafafa;
+  --theme-red: #000000;
+  --theme-green: #000000;
+  --theme-rainbow-green: #1a1a1a;
+  --theme-rainbow-yellow: #2a2a2a;
+  --theme-rainbow-peach: #3a3a3a;
+  --theme-rainbow-red: #4a4a4a;
+  --theme-rainbow-mauve: #5a5a5a;
+  --theme-rainbow-sky: #6a6a6a;
 }
 
 :root {
@@ -86,19 +134,53 @@ body {
   background-size: 22px 22px;
 }
 
-/* Atkinson Hyperlegible font override */
+/* Atkinson Hyperlegible font override - full site-wide implementation */
 html[data-font="atkinson"] body {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 24px;
+  font-size: 20px;
+}
+
+html[data-font="atkinson"] h1,
+html[data-font="atkinson"] h2,
+html[data-font="atkinson"] h3 {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+  font-weight: bold;
+}
+
+html[data-font="atkinson"] .menu-bar,
+html[data-font="atkinson"] .menu-item,
+html[data-font="atkinson"] .dropdown-item {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+}
+
+html[data-font="atkinson"] .menu-item:first-child {
+  font-weight: bold;
+}
+
+html[data-font="atkinson"] .title-bar .title {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+  font-weight: bold;
 }
 
 html[data-font="atkinson"] .content p,
-html[data-font="atkinson"] .content li {
+html[data-font="atkinson"] .content li,
+html[data-font="atkinson"] .content a,
+html[data-font="atkinson"] .content code {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html[data-font="atkinson"] .footer {
-  font-size: 0.96rem;
+  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.92rem;
+}
+
+html[data-font="atkinson"] .project {
+  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[data-font="atkinson"] .track-name {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+  font-weight: bold;
 }
 
 .container {
@@ -110,10 +192,9 @@ html[data-font="atkinson"] .footer {
 .menu-bar {
   background: var(--theme-base);
   border: 2px solid var(--theme-text);
-  border-bottom: none;
   display: flex;
   align-items: stretch;
-  margin-bottom: -2px;
+  margin-bottom: 0;
   font-size: 0.95rem;
   position: relative;
   z-index: 10;
@@ -248,7 +329,7 @@ html[data-font="atkinson"] .footer {
 .title-bar {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.4rem 0.5rem;
   background: repeating-linear-gradient(
     90deg,
     var(--theme-pink) 0px,
@@ -265,7 +346,7 @@ html[data-font="atkinson"] .footer {
   background: var(--theme-base);
   color: var(--theme-text);
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-family: Chicago, serif;
 }
 
