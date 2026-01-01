@@ -4,6 +4,22 @@
   {% include head.html %}
 </head>
 <body>
+  <div class="staging-banner" id="staging-banner" style="display: none;">
+    STAGING - Development Branch
+  </div>
+  <script>
+  (function() {
+    const hostname = window.location.hostname;
+    const isStaging = hostname === 'localhost' ||
+                      hostname === '127.0.0.1' ||
+                      hostname.startsWith('stg.') ||
+                      hostname.includes('.local');
+
+    if (isStaging) {
+      document.getElementById('staging-banner').style.display = 'block';
+    }
+  })();
+  </script>
   <div class="container">
     {% include menubar.html %}
 

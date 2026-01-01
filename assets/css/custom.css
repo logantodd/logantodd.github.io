@@ -1,3 +1,30 @@
+/* Staging banner - only visible in development */
+.staging-banner {
+  background: #dc2626;
+  color: #ffffff;
+  text-align: center;
+  padding: 0.5rem 0;
+  font-family: Chicago, serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #991b1b;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 1000;
+  margin: 0;
+}
+
+body {
+  padding-top: 0;
+}
+
+body:has(.staging-banner[style*="display: block"]) {
+  padding-top: 2.5rem;
+}
+
 /* Catppuccin Theme Overrides */
 :root {
   /* Theme-aware color mapping - default to Mocha (dark) */
