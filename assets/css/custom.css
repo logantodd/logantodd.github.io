@@ -452,6 +452,14 @@ li::marker {
   color: var(--theme-pink);
 }
 
+/* Images */
+.content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem 0;
+}
+
 /* Footer */
 .footer {
   margin-top: 2rem;

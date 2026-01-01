@@ -1,16 +1,22 @@
 {% assign project = include.project %}
 
 <div class="project">
-  <h3>{{ project.title }}</h3>
+  <h2>{{ project.title }}</h2>
   <p>{{ project.description }}</p>
 
   <div class="project-actions">
+    {% if project.article %}
     <a href="{{ project.url | relative_url }}" class="project-button">
       Read More
     </a>
+    {% endif %}
     {% if project.external_url and project.external_url != "" %}
     <a href="{{ project.external_url }}" class="project-button" target="_blank" rel="noopener noreferrer">
-      External Link
+      {% if project.url_text and project.url_text != "" %}
+        {{ project.url_text }}
+      {% else %}
+        External Link
+      {% endif %}
     </a>
     {% endif %}
   </div>
