@@ -4,33 +4,59 @@ This is my personal website hosted on GitHub Pages. The site includes a blog for
 
 ## Features
 
-- **Blog**: Jekyll-powered blog with markdown support
-- **Projects Portfolio**: Dedicated collection for showcasing  projects
-- **Last.fm Integration**: Live music widget displaying currently playing tracks using the Last.fm API
-- **Responsive Design**: Custom CSS with mobile-friendly navigation and layout
+- **Blog**: Jekyll-powered blog with markdown support and clean URLs
+- **Projects Portfolio**: Dedicated collection for showcasing projects with customizable buttons and descriptions
+- **Last.fm Integration**: Live music widget displaying currently playing tracks with auto-refresh and caching
+- **Theme Switching**: Multiple Catppuccin themes (Mocha, Latte) plus Monochrome mode
+- **Font Options**: Toggle between classic Mac fonts and Atkinson Hyperlegible for accessibility
+- **Responsive Design**: Mobile-optimized layout with touch-friendly navigation
 - **Resume Page**: Professional experience and qualifications
-- **Custom Permalink Structure**: Clean URLs for blog posts and project pages
+- **Custom 404 Page**: Themed error page with sad Mac icon
+- **Staging Banner**: Visual indicator for development environments
+- **88x31 Buttons**: Classic web button collection in footer
 
 ## Usage
 
 ### Local Development
+
+#### Initial Setup
 
 1. Install Ruby and Bundler:
 ```bash
 gem install bundler
 ```
 
-2. Install dependencies:
+2. Clone the repository:
 ```bash
+git clone https://github.com/abbyfluoroethane/abbyfluoroethane.github.io.git
+cd abbyfluoroethane.github.io
+```
+
+3. Configure Bundler to install gems locally:
+```bash
+bundle config set --local path 'vendor/bundle'
 bundle install
 ```
 
-3. Run the local development server:
+**Note**: Installing gems locally to `vendor/bundle` ensures Jekyll is available via `bundle exec` and prevents conflicts with system-wide gems.
+
+#### Running the Development Server
+
+Start Jekyll with:
 ```bash
 bundle exec jekyll serve
 ```
 
-4. Visit `http://localhost:4000` in your browser
+The site will be available at `http://localhost:4000`. Jekyll will automatically rebuild when you make changes to files.
+
+**Useful options:**
+- `bundle exec jekyll serve --drafts` - Include draft posts
+- `bundle exec jekyll serve --livereload` - Auto-refresh browser on changes
+- `bundle exec jekyll serve --incremental` - Faster rebuilds (only changed files)
+
+#### Development Environment Indicator
+
+When running locally (localhost or 127.0.0.1), a red "STAGING" banner appears at the top of the page to indicate you're in development mode.
 
 ### Adding Blog Posts
 
@@ -113,6 +139,96 @@ lastfm:
 ```
 
 Get a free API key from [Last.fm API](https://www.last.fm/api/account/create).
+
+The widget features:
+- Auto-refresh every 2 minutes
+- Manual refresh button
+- LocalStorage caching for faster loads
+- "Now Playing" vs "Last Played" status indicator
+- Animated pulse for currently playing tracks
+- Direct link to track on Last.fm
+- Fallback to cached data if API fails
+
+### Theme Customization
+
+The site supports multiple color themes via the menubar:
+
+**Available Themes:**
+- **Mocha** (dark) - Default dark theme
+- **Latte** (light) - Light mode with high contrast
+- **Monochrome** - Classic black and white
+
+Theme preference is saved to localStorage and persists across sessions. The theme is applied before page render to prevent FOUC (Flash of Unstyled Content).
+
+### Font Options
+
+Toggle between font sets via the menubar:
+
+- **Default**: Classic Mac fonts (Chicago headers, Geneva body)
+- **Atkinson Hyperlegible**: Accessible font optimized for readability
+
+Font preference is saved to localStorage.
+
+### Site Structure
+
+```
+├── _posts/          # Blog posts (YYYY-MM-DD-title.md)
+├── _projects/       # Project pages
+├── _layouts/        # Page templates
+│   ├── default.html # Main layout with menubar and window chrome
+│   └── post.html    # Blog post layout
+├── _includes/       # Reusable components
+│   ├── head.html           # HTML head with fonts and theme
+│   ├── menubar.html        # Top navigation bar
+│   ├── project-preview.html # Project card component
+│   └── lastfm-widget.html  # Last.fm now playing widget
+├── assets/
+│   ├── css/
+│   │   ├── catppuccin.css  # Theme color definitions
+│   │   └── custom.css      # Site-specific styles
+│   ├── fonts/              # Chicago and Geneva fonts
+│   └── images/             # Icons, buttons, artwork
+├── _config.yml      # Jekyll configuration
+└── index.md         # Homepage
+```
+
+### Images in Content
+
+Images in markdown files are automatically constrained to content width:
+
+```markdown
+![Alt text](/assets/images/example.png)
+```
+
+Images will:
+- Never exceed content width (max-width: 100%)
+- Maintain aspect ratio
+- Display as block elements with margin spacing
+
+### Deployment
+
+The site automatically deploys via GitHub Pages when changes are pushed to the `main` branch. GitHub Actions builds the site using the `github-pages` gem.
+
+**Build process:**
+1. Push changes to `main` branch
+2. GitHub Actions triggers Jekyll build
+3. Built site is deployed to `abbyfluoroethane.github.io`
+
+**Branches:**
+- `main` - Production branch (auto-deploys)
+- `devel` - Development branch for testing changes
+
+### Troubleshooting
+
+**Site not updating:**
+- Check for syntax errors in markdown/YAML front matter
+- Verify file naming (posts must be `YYYY-MM-DD-title.md`)
+- Restart Jekyll server: `Ctrl+C` then `bundle exec jekyll serve`
+
+**Last.fm widget not working:**
+- Verify API key is correct in `_config.yml`
+- Check browser console for errors
+- Ensure username is correct and profile is public
 
 ## Acknowledgements
 
