@@ -4,3 +4,7 @@ _site/
 .jekyll-metadata
 Gemfile.lock
 .DS_Store
+vendor/
+.bundle/
+bin/
+/.claude
