@@ -19,9 +19,14 @@
         <div class="track-album" id="lastfm-album-name">—</div>
       </div>
 
-      <a href="#" id="lastfm-link" class="lastfm-button" target="_blank" rel="noopener noreferrer">
-        View on Last.fm
-      </a>
+      <div class="lastfm-actions">
+        <button id="lastfm-refresh" class="lastfm-button lastfm-refresh-button">
+          Refresh
+        </button>
+        <a href="#" id="lastfm-link" class="lastfm-button" target="_blank" rel="noopener noreferrer">
+          View on Last.fm
+        </a>
+      </div>
     </div>
   </div>
 
@@ -122,6 +127,13 @@
   font-style: italic;
 }
 
+.lastfm-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  align-self: flex-end;
+}
+
 .lastfm-button {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -134,7 +146,6 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
-  align-self: flex-end;
   box-shadow: 2px 2px 0 var(--theme-surface0);
 }
 
@@ -142,6 +153,15 @@
   background: var(--theme-pink) !important;
   color: var(--theme-crust) !important;
   box-shadow: 3px 3px 0 var(--theme-surface1);
+}
+
+.lastfm-refresh-button {
+  padding: 0.5rem 1rem;
+}
+
+.lastfm-refresh-button.refreshing {
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .lastfm-message {
@@ -171,7 +191,7 @@
     justify-content: center;
   }
 
-  .lastfm-button {
+  .lastfm-actions {
     align-self: center;
   }
 }
@@ -231,13 +251,40 @@
       statusIndicator: document.getElementById('lastfm-status-indicator'),
       statusText: document.getElementById('lastfm-status-text'),
       link: document.getElementById('lastfm-link'),
+      refreshButton: document.getElementById('lastfm-refresh'),
       error: document.getElementById('lastfm-error'),
       errorText: document.getElementById('lastfm-error-text'),
       content: document.querySelector('.lastfm-content')
     };
+
+    // Add refresh button click handler
+    if (elements.refreshButton) {
+      elements.refreshButton.addEventListener('click', function() {
+        manualRefresh();
+      });
+    }
   }
 
-  function fetchAndUpdate() {
+  function manualRefresh() {
+    if (elements.refreshButton && elements.refreshButton.classList.contains('refreshing')) {
+      return; // Already refreshing
+    }
+
+    setRefreshingState(true);
+    fetchAndUpdate(true);
+  }
+
+  function setRefreshingState(isRefreshing) {
+    if (elements.refreshButton) {
+      if (isRefreshing) {
+        elements.refreshButton.classList.add('refreshing');
+      } else {
+        elements.refreshButton.classList.remove('refreshing');
+      }
+    }
+  }
+
+  function fetchAndUpdate(isManual = false) {
     const url = `${LASTFM_API_URL}?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=1`;
 
     fetch(url)
@@ -261,6 +308,10 @@
         setCachedData(trackData);
         updateUI(trackData);
         hideError();
+
+        if (isManual) {
+          setRefreshingState(false);
+        }
       })
       .catch(error => {
         console.error('Last.fm fetch error:', error);
@@ -270,6 +321,10 @@
           updateUI(cached);
         } else {
           showError('Unable to load track data');
+        }
+
+        if (isManual) {
+          setRefreshingState(false);
         }
       });
   }
