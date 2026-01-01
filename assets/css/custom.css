@@ -192,10 +192,9 @@ html[data-font="atkinson"] .track-name {
 .menu-bar {
   background: var(--theme-base);
   border: 2px solid var(--theme-text);
-  border-bottom: none;
   display: flex;
   align-items: stretch;
-  margin-bottom: -2px;
+  margin-bottom: 0;
   font-size: 0.95rem;
   position: relative;
   z-index: 10;
@@ -330,7 +329,7 @@ html[data-font="atkinson"] .track-name {
 .title-bar {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.4rem 0.5rem;
   background: repeating-linear-gradient(
     90deg,
     var(--theme-pink) 0px,
@@ -347,7 +346,7 @@ html[data-font="atkinson"] .track-name {
   background: var(--theme-base);
   color: var(--theme-text);
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-family: Chicago, serif;
 }
 
