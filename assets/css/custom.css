@@ -110,13 +110,14 @@ body {
 /* Atkinson Hyperlegible font override - full site-wide implementation */
 html[data-font="atkinson"] body {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 html[data-font="atkinson"] h1,
 html[data-font="atkinson"] h2,
 html[data-font="atkinson"] h3 {
   font-family: 'Atkinson Hyperlegible', Chicago, serif;
+  font-weight: bold;
 }
 
 html[data-font="atkinson"] .menu-bar,
@@ -125,8 +126,13 @@ html[data-font="atkinson"] .dropdown-item {
   font-family: 'Atkinson Hyperlegible', Chicago, serif;
 }
 
+html[data-font="atkinson"] .menu-item:first-child {
+  font-weight: bold;
+}
+
 html[data-font="atkinson"] .title-bar .title {
   font-family: 'Atkinson Hyperlegible', Chicago, serif;
+  font-weight: bold;
 }
 
 html[data-font="atkinson"] .content p,
@@ -143,6 +149,11 @@ html[data-font="atkinson"] .footer {
 
 html[data-font="atkinson"] .project {
   font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[data-font="atkinson"] .track-name {
+  font-family: 'Atkinson Hyperlegible', Chicago, serif;
+  font-weight: bold;
 }
 
 .container {
