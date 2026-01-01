@@ -38,16 +38,56 @@ Create a new markdown file in `_posts/` following the naming convention `YYYY-MM
 
 ```markdown
 ---
-title: Your Post Title
-app_name: Blog
+layout: post
+title: "Your Post Title"
+date: 2025-01-01
 ---
 
 Your content here...
 ```
 
+#### Blog Post Front Matter
+
+| Field | Required | Description | Example |
+|-------|----------|-------------|---------|
+| `layout` | Yes | Page layout template | `post` |
+| `title` | Yes | Post title | `"My Blog Post"` |
+| `date` | Yes | Publication date | `2025-01-01` |
+| `app_name` | No | Override menu bar title | `"Blog"` |
+
 ### Adding Projects
 
 Create markdown files in `_projects/` directory with project details.
+
+#### Project Front Matter
+
+| Field | Required | Description | Example |
+|-------|----------|-------------|---------|
+| `title` | Yes | Project name | `"My Project"` |
+| `status` | Yes | Project status (`active` or `archive`) | `active` |
+| `description` | Yes | Short description shown in project listing | `"A cool project I built"` |
+| `date` | Yes | Project start/creation date (for sorting) | `2019-01-01` |
+| `article` | No | Show "Read More" button (default: `false`) | `true` or `false` |
+| `featured` | No | Feature this project (currently unused) | `true` or `false` |
+| `external_url` | No | External link URL (GitHub, live demo, etc.) | `"https://github.com/user/repo"` |
+| `url_text` | No | Custom text for external link button (default: "External Link") | `"View on GitHub"` |
+
+Example project front matter:
+
+```markdown
+---
+title: High-Power Rocketry
+status: active
+featured: true
+article: true
+description: building high power rockets on a budget
+external_url: "https://github.com/user/rocketry"
+url_text: "View Code"
+date: 2019-01-01
+---
+
+Your project details here...
+```
 
 ### Configuration
 
