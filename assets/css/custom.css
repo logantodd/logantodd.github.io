@@ -230,11 +230,12 @@ html[data-font="atkinson"] .track-name {
 .menu-item.app-name {
   font-weight: bold;
   padding: 0.4rem 1rem;
+  cursor: pointer;
 }
 
-.menu-item.app-name:hover {
-  background: transparent;
-  cursor: default;
+.menu-item.app-name.active {
+  background: var(--theme-pink);
+  color: var(--theme-crust);
 }
 
 /* Dropdown menu */
