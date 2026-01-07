@@ -17,4 +17,4 @@ The project was completed in January 2023 after two successful flights on 9 July
 
 ![Biblically Inaccurate Angel Flight 1 hero](/assets/images/projects/biblically inaccurate angel/BIA-hero.jpg)
 
-#### Acknowledgements: [Lavie Ohana](https://lavieohana.com), chute supplier and technical advisors
+#### Acknowledgements: [Lavie Ohana](https://lavieohana.com), chute supplier and technical advisor.
