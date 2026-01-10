@@ -697,3 +697,20 @@ li::marker {
     font-size: 0.95rem;
   }
 }
+
+/* Wireframe images - adapt to theme colors */
+.wireframe {
+  max-width: 100%;
+  height: auto;
+  color: var(--theme-text);
+}
+
+/* Apply color based on theme */
+:root[data-theme="mocha"] .wireframe {
+  filter: brightness(0) saturate(100%) invert(1);
+}
+
+:root[data-theme="latte"] .wireframe,
+:root[data-theme="monochrome"] .wireframe {
+  filter: brightness(0) saturate(100%) invert(0);
+}
