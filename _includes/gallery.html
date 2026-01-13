@@ -1,0 +1,345 @@
+{% comment %}
+Masonry Gallery Component
+Usage: {% include gallery.html gallery="gallery-name" %}
+Requires: Data file at _data/galleries/[gallery-name].yml
+{% endcomment %}
+
+{% assign gallery_data = site.data.galleries[include.gallery] %}
+{% assign gallery_id = include.gallery | slugify %}
+
+{% if gallery_data %}
+<!-- Gallery Container -->
+<div class="masonry-gallery" id="gallery-{{ gallery_id }}">
+  {% if gallery_data.title %}
+  <h3 class="gallery-title">{{ gallery_data.title }}</h3>
+  {% endif %}
+
+  <div class="masonry-grid">
+    {% for image in gallery_data.images %}
+      {% capture image_path %}{{ gallery_data.folder }}/{{ image.filename }}{% endcapture %}
+      <div class="masonry-item">
+        <img
+          src="{{ image_path | relative_url }}"
+          alt="{{ image.alt | escape }}"
+          title="{{ image.caption | default: image.alt | escape }}"
+          loading="lazy"
+          data-index="{{ forloop.index0 }}"
+        >
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div class="gallery-lightbox" id="lightbox-{{ gallery_id }}" style="display: none;">
+  <div class="lightbox-window">
+    <div class="title-bar">
+      <div class="window-close lightbox-close" id="lightbox-close-{{ gallery_id }}"></div>
+      <div class="title lightbox-counter" aria-live="polite"></div>
+      <div style="width: 16px;"></div>
+    </div>
+    <div class="lightbox-content">
+      <div class="lightbox-image-container">
+        <div class="lightbox-loading">Loading...</div>
+        <img class="lightbox-image" src="" alt="">
+      </div>
+      <div class="lightbox-caption"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Gallery Grid Styles */
+.masonry-gallery {
+  margin: 2rem 0;
+}
+
+.gallery-title {
+  color: var(--theme-pink);
+  margin-bottom: 1rem;
+  font-family: Chicago, serif;
+}
+
+.masonry-grid {
+  column-count: 3;
+  column-gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-grid {
+    column-count: 1;
+  }
+}
+
+.masonry-item {
+  border: 2px solid var(--theme-surface1);
+  box-shadow: 2px 2px 0 var(--theme-surface0);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  display: block;
+  width: 100%;
+  line-height: 0;
+  font-size: 0;
+}
+
+.masonry-item:hover {
+  box-shadow: 3px 3px 0 var(--theme-surface1);
+  transform: translateY(-2px);
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Lightbox Modal - matches about-window style */
+.gallery-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lightbox-window {
+  background: var(--theme-base);
+  border: 2px solid var(--theme-text);
+  box-shadow: 4px 4px 0 var(--theme-surface0);
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.lightbox-image-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 60vh;
+  height: auto;
+  display: block;
+  border: 1px solid var(--theme-surface1);
+}
+
+.lightbox-loading {
+  position: absolute;
+  color: var(--theme-text);
+  font-family: Chicago, serif;
+  font-size: 1rem;
+  display: none;
+}
+
+.lightbox-caption {
+  margin-top: 0.75rem;
+  color: var(--theme-overlay0);
+  font-family: Chicago, serif;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.lightbox-caption:empty {
+  display: none;
+}
+
+/* Additional Responsive Design */
+@media (max-width: 768px) {
+  .lightbox-window {
+    max-width: 90vw;
+    max-height: 85vh;
+  }
+
+  .lightbox-content {
+    padding: 0.75rem;
+  }
+
+  .lightbox-image {
+    max-height: 55vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .lightbox-window {
+    max-width: 95vw;
+    max-height: 90vh;
+  }
+
+  .lightbox-content {
+    padding: 0.5rem;
+  }
+
+  .lightbox-caption {
+    font-size: 0.8rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  const galleryId = 'gallery-{{ gallery_id }}';
+  const lightboxId = 'lightbox-{{ gallery_id }}';
+  const gallery = document.getElementById(galleryId);
+  const lightbox = document.getElementById(lightboxId);
+
+  if (!gallery || !lightbox) return;
+
+  // Parse image data from gallery
+  const images = [
+    {% for image in gallery_data.images %}
+    {% capture image_path %}{{ gallery_data.folder }}/{{ image.filename }}{% endcapture %}
+    {
+      src: "{{ image_path | relative_url }}",
+      alt: "{{ image.alt | escape }}",
+      caption: "{{ image.caption | escape }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  let currentIndex = 0;
+
+  // DOM elements
+  const lightboxImage = lightbox.querySelector('.lightbox-image');
+  const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+  const lightboxCounter = lightbox.querySelector('.lightbox-counter');
+  const lightboxLoading = lightbox.querySelector('.lightbox-loading');
+  const closeBtn = document.getElementById('lightbox-close-{{ gallery_id }}');
+
+  // Initialize gallery
+  function initGallery() {
+    const items = gallery.querySelectorAll('.masonry-item');
+    console.log('Gallery items found:', items.length);
+    items.forEach((item) => {
+      item.addEventListener('click', function(e) {
+        // Disable lightbox on mobile (single column view)
+        if (window.innerWidth <= 480) {
+          return;
+        }
+
+        e.preventDefault();
+        const img = this.querySelector('img');
+        if (img) {
+          const index = parseInt(img.getAttribute('data-index'));
+          console.log('Opening lightbox at index:', index);
+          openLightbox(index);
+        }
+      });
+    });
+  }
+
+  // Open lightbox at specific index
+  function openLightbox(index) {
+    currentIndex = index;
+    updateLightbox();
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    // Focus management for accessibility
+    closeBtn.focus();
+  }
+
+  // Close lightbox
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Navigate (direction: 1 for next, -1 for prev)
+  function navigate(direction) {
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    updateLightbox();
+  }
+
+  // Update lightbox content
+  function updateLightbox() {
+    const currentImage = images[currentIndex];
+
+    // Show loading state
+    lightboxLoading.style.display = 'block';
+    lightboxImage.style.display = 'none';
+
+    // Update image
+    lightboxImage.src = currentImage.src;
+    lightboxImage.alt = currentImage.alt;
+
+    // Update caption
+    lightboxCaption.textContent = currentImage.caption || '';
+
+    // Update counter
+    lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+
+    // Handle image load
+    lightboxImage.onload = function() {
+      lightboxLoading.style.display = 'none';
+      lightboxImage.style.display = 'block';
+    };
+
+    lightboxImage.onerror = function() {
+      lightboxLoading.textContent = 'Error loading image';
+    };
+  }
+
+  // Event handlers
+  closeBtn.addEventListener('click', closeLightbox);
+
+  // Click overlay to close
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (lightbox.style.display !== 'flex') return;
+
+    if (e.key === 'Escape') {
+      closeLightbox();
+    }
+  });
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
+  } else {
+    initGallery();
+  }
+})();
+</script>
+
+{% else %}
+<!-- Gallery data not found -->
+<div style="padding: 1rem; border: 2px solid var(--theme-pink); color: var(--theme-pink); font-family: Chicago, serif;">
+  Gallery "{{ include.gallery }}" not found. Please create _data/galleries/{{ include.gallery }}.yml
+</div>
+{% endif %}
