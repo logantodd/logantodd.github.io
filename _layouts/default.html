@@ -4,7 +4,7 @@
   {% include head.html %}
 </head>
 <body>
-  <div class="staging-banner" id="staging-banner" style="display: none;">
+  <div class="staging-banner hidden" id="staging-banner">
     STAGING - Development Branch
   </div>
   <script>
@@ -16,7 +16,7 @@
                       hostname.includes('.local');
 
     if (isStaging) {
-      document.getElementById('staging-banner').style.display = 'block';
+      document.getElementById('staging-banner').classList.remove('hidden');
     }
   })();
   </script>
@@ -26,7 +26,7 @@
     <div class="window">
       <div class="title-bar">
         <div class="title">{{ page.title | default: site.title }}</div>
-        <div style="width: 16px;"></div>
+        <div class="title-spacer"></div>
       </div>
 
       <div class="content">
@@ -51,22 +51,22 @@
   </div>
 
   <!-- About Window Modal -->
-  <div id="about-overlay" class="about-overlay" style="display: none;">
+  <div id="about-overlay" class="about-overlay hidden">
     <div class="about-window">
       <div class="title-bar">
         <div class="window-close" id="about-close"></div>
         <div class="title">About</div>
-        <div style="width: 16px;"></div>
+        <div class="title-spacer"></div>
       </div>
 
       <div class="about-content">
         <div class="about-image">
           <!-- You can add an image here -->
-          <img src="{{ '/assets/images/about.gif' | relative_url }}" alt="About Icon" style="max-width: 128px; height: auto;">
+          <img src="{{ '/assets/images/about.gif' | relative_url }}" alt="About Icon">
         </div>
         <div class="about-text">
           <h3>{{ site.title | default: "Portfolio" }}</h3>
-          <p>version 1.1.2</p>
+          <p>version 1.2.0</p>
           <p>made on earth by humans</p>
           <p>2025 abby bigaouette</p>
         </div>
@@ -75,12 +75,12 @@
   </div>
 
   <!-- Acknowledgements Window Modal -->
-  <div id="acknowledgements-overlay" class="about-overlay" style="display: none;">
+  <div id="acknowledgements-overlay" class="about-overlay hidden">
     <div class="about-window">
       <div class="title-bar">
         <div class="window-close" id="acknowledgements-close"></div>
         <div class="title">Acknowledgements</div>
-        <div style="width: 16px;"></div>
+        <div class="title-spacer"></div>
       </div>
 
       <div class="about-content">
@@ -91,8 +91,8 @@
           <p><strong>system7.css</strong> - classic Mac OS inspired CSS</p>
           <p><strong>Atkinson Hyperlegible</strong> - accessible font</p>
           <p><strong>Last.fm API</strong> - music tracking</p>
-          <div class="divider" style="margin: 1rem 0;"></div>
-          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--theme-overlay0);">
+          <div class="divider divider-spaced"></div>
+          <p class="acknowledgements-footer">
             hosted on GitHub Pages
           </p>
         </div>

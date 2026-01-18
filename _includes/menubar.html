@@ -235,14 +235,14 @@
   function showAboutWindow() {
     const overlay = document.getElementById('about-overlay');
     if (overlay) {
-      overlay.style.display = 'flex';
+      overlay.classList.remove('hidden');
     }
   }
 
   function hideAboutWindow() {
     const overlay = document.getElementById('about-overlay');
     if (overlay) {
-      overlay.style.display = 'none';
+      overlay.classList.add('hidden');
     }
   }
 
@@ -250,14 +250,14 @@
   function showAcknowledgementsWindow() {
     const overlay = document.getElementById('acknowledgements-overlay');
     if (overlay) {
-      overlay.style.display = 'flex';
+      overlay.classList.remove('hidden');
     }
   }
 
   function hideAcknowledgementsWindow() {
     const overlay = document.getElementById('acknowledgements-overlay');
     if (overlay) {
-      overlay.style.display = 'none';
+      overlay.classList.add('hidden');
     }
   }
 
