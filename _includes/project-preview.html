@@ -6,12 +6,12 @@
 
   <div class="project-actions">
     {% if project.article %}
-    <a href="{{ project.url | relative_url }}" class="project-button">
+    <a href="{{ project.url | relative_url }}" class="action-button">
       Read More
     </a>
     {% endif %}
     {% if project.external_url and project.external_url != "" %}
-    <a href="{{ project.external_url }}" class="project-button" target="_blank" rel="noopener noreferrer">
+    <a href="{{ project.external_url }}" class="action-button" target="_blank" rel="noopener noreferrer">
       {% if project.url_text and project.url_text != "" %}
         {{ project.url_text }}
       {% else %}
@@ -21,47 +21,3 @@
     {% endif %}
   </div>
 </div>
-
-<style>
-.project-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
-
-.project-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: var(--theme-surface0);
-  border: 2px solid var(--theme-surface1);
-  color: var(--theme-pink) !important;
-  text-decoration: none !important;
-  border-bottom: 2px solid var(--theme-surface1) !important;
-  font-family: Chicago, serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 2px 2px 0 var(--theme-surface0);
-}
-
-.project-button:hover {
-  background: var(--theme-pink) !important;
-  color: var(--theme-crust) !important;
-  box-shadow: 3px 3px 0 var(--theme-surface1);
-}
-
-@media (max-width: 768px) {
-  .project-actions {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .project-button {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
-}
-</style>

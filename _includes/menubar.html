@@ -25,6 +25,9 @@
       <div class="dropdown-item">
         <a href="{{ '/blog' | relative_url }}">Blog</a>
       </div>
+      <div class="dropdown-item">
+        <a href="{{ '/gallery' | relative_url }}">Gallery</a>
+      </div>
       <div class="divider"></div>
       <div class="dropdown-item">
         <a href="{{ '/resume' | relative_url }}">Resume</a>
@@ -265,14 +268,14 @@
   function showAboutWindow() {
     const overlay = document.getElementById('about-overlay');
     if (overlay) {
-      overlay.style.display = 'flex';
+      overlay.classList.remove('hidden');
     }
   }
 
   function hideAboutWindow() {
     const overlay = document.getElementById('about-overlay');
     if (overlay) {
-      overlay.style.display = 'none';
+      overlay.classList.add('hidden');
     }
   }
 
@@ -280,14 +283,14 @@
   function showAcknowledgementsWindow() {
     const overlay = document.getElementById('acknowledgements-overlay');
     if (overlay) {
-      overlay.style.display = 'flex';
+      overlay.classList.remove('hidden');
     }
   }
 
   function hideAcknowledgementsWindow() {
     const overlay = document.getElementById('acknowledgements-overlay');
     if (overlay) {
-      overlay.style.display = 'none';
+      overlay.classList.add('hidden');
     }
   }
 
