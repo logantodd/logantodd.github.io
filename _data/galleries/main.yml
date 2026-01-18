@@ -1,7 +1,23 @@
-title: "Gallery"
+title:
 folder: "assets/images/galleries/main"
 
 images:
+  - filename: "SLS_1.jpg.webp"
+    alt: "Artemis II SLS Rollout"
+    caption: "Artemis II SLS Rollout"
+
+  - filename: "SLS_2.jpg.webp"
+    alt: "Artemis II SLS Rollout"
+    caption: "Artemis II SLS Rollout"
+
+  - filename: "SLS_3.jpg.webp"
+    alt: "Artemis II SLS Rollout"
+    caption: "Artemis II SLS Rollout"
+
+  - filename: "SLS_4.jpg.webp"
+    alt: "Artemis II SLS Rollout"
+    caption: "Artemis II SLS Rollout"
+
   - filename: "optus-x1.jpg"
     alt: "Optus-X launch"
     caption: "Optus-X launch"

@@ -8,3 +8,4 @@ vendor/
 .bundle/
 bin/
 /.claude
+CHANGELOG.md
