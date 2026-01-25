@@ -55,18 +55,10 @@ Aerospace-grade mechanic building a road to space. Extensive experience in high-
 - Overhauled production workflows, leading to an 88% improvement in ability to meet daily print deadlines.
 
 ## Projects
-### Personal Website
-#### 2016 - Present
-- Built and maintained personal website using Jekyll and GitHub Pages.
-- Designed custom responsive UI inspired by classic Mac OS aesthetics with multiple theme and accessibility options.
-- Hosts blog, projects portfolio, and resume with automated deployment.
-
-### High-Power Rocketry
-#### 2019 - Present
-- Utilizes novel construction methods to dramatically reduce the cost to build and fly high power rockets.
-- Demonstrated rapid reusability by flying the same rocket twice in a 24-hour period.
-- Designed, assembled, and debugged custom avionics PCBs including flight computers and telemetry systems.
-- Level 2 High Power certified.
+### Daria for Sharkey & Turtkey
+#### 2026-Present
+- Cross-platform Misskey compatible fediverse client designed to give Sharkey and Turtkey users a first-class experience on mobile and desktop.
+- Built using Flutter and Dart.
 
 ### Liquid Propulsion
 #### 2023 - Present
@@ -75,10 +67,23 @@ Aerospace-grade mechanic building a road to space. Extensive experience in high-
 - Utilizes Onshape and OnScale for design and simulation.
 - Creates detailed engineering drawings and work instructions for suppliers and assembly operations.
 
+### High-Power Rocketry
+#### 2019 - Present
+- Utilizes novel construction methods to dramatically reduce the cost to build and fly high power rockets.
+- Demonstrated rapid reusability by flying the same rocket twice in a 24-hour period.
+- Designed, assembled, and debugged custom avionics PCBs including flight computers and telemetry systems.
+- Level 2 High Power certified.
+
+### Personal Website
+#### 2016 - Present
+- Built and maintained personal website using Jekyll and GitHub Pages.
+- Designed custom responsive UI inspired by classic Mac OS aesthetics with multiple theme and accessibility options.
+- Hosts blog, projects portfolio, and resume with automated deployment.
+
 ## Skills, Awards, and Certifications
 **Technical:** CAD (Creo, Onshape, Autodesk Fusion, KiCad); 3D Printing (FDM, SLA, SLS); Welding (MIG, TIG); Composites Manufacturing (fiberglass, carbon fiber); Precision Drilling; Rigging & Lifting; System Testing; Project Management
 
-**Software:** Python; C# .NET; Web Development (HTML, CSS, JavaScript)
+**Software:** Python, C# .NET, Dart, Flutter; Web Development (HTML, CSS, JavaScript)
 
 **Design & Media:** Adobe Creative Cloud (Illustrator, InDesign, Photoshop); Serif Affinity (Designer, Photo, Publisher); Davinci Resolve; AP Style
 
