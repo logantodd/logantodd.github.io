@@ -23,13 +23,17 @@
   <div class="container">
     {% include menubar.html %}
 
-    <div class="window">
+    <div class="window" role="main">
       <div class="title-bar">
-        <div class="title">{{ page.title | default: site.title }}</div>
-        <div class="title-spacer"></div>
+        <div class="title-bar-text">{{ page.title | default: site.title }}</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize" disabled></button>
+          <button aria-label="Maximize" disabled></button>
+          <button aria-label="Close" disabled></button>
+        </div>
       </div>
 
-      <div class="content">
+      <div class="window-body">
         {{ content }}
 
         <div class="footer">
@@ -52,21 +56,22 @@
 
   <!-- About Window Modal -->
   <div id="about-overlay" class="about-overlay hidden">
-    <div class="about-window">
+    <div class="window about-window">
       <div class="title-bar">
-        <div class="window-close" id="about-close"></div>
-        <div class="title">About</div>
-        <div class="title-spacer"></div>
+        <div class="title-bar-text">About</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" id="about-close"></button>
+        </div>
       </div>
 
-      <div class="about-content">
+      <div class="window-body about-content">
         <div class="about-image">
           <!-- You can add an image here -->
           <img src="{{ '/assets/images/about.gif' | relative_url }}" alt="About Icon">
         </div>
         <div class="about-text">
           <h3>{{ site.title | default: "Portfolio" }}</h3>
-          <p>version 1.2.0</p>
+          <p>version 1.3.0</p>
           <p>made on earth by humans</p>
           <p>2025 abby bigaouette</p>
         </div>
@@ -76,19 +81,20 @@
 
   <!-- Acknowledgements Window Modal -->
   <div id="acknowledgements-overlay" class="about-overlay hidden">
-    <div class="about-window">
+    <div class="window about-window">
       <div class="title-bar">
-        <div class="window-close" id="acknowledgements-close"></div>
-        <div class="title">Acknowledgements</div>
-        <div class="title-spacer"></div>
+        <div class="title-bar-text">Acknowledgements</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close" id="acknowledgements-close"></button>
+        </div>
       </div>
 
-      <div class="about-content">
+      <div class="window-body about-content">
         <div class="about-text">
           <h3>built with</h3>
           <p><strong>Jekyll</strong> - static site generator</p>
           <p><strong>Catppuccin</strong> - soothing pastel theme</p>
-          <p><strong>system7.css</strong> - classic Mac OS inspired CSS</p>
+          <p><strong>7.css</strong> - Windows 7 inspired CSS</p>
           <p><strong>Atkinson Hyperlegible</strong> - accessible font</p>
           <p><strong>Last.fm API</strong> - music tracking</p>
           <div class="divider divider-spaced"></div>

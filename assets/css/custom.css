@@ -1,20 +1,20 @@
-/* Staging banner - only visible in development */
+/* Windows 7 Style Site - Powered by 7.css */
+
+/* Staging Banner */
 .staging-banner {
-  background: #dc2626;
+  background: linear-gradient(180deg, #e81123 0%, #c21825 100%);
   color: #ffffff;
   text-align: center;
   padding: 0.5rem 0;
-  font-family: Chicago, serif;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 0.9rem;
-  border-bottom: 2px solid #991b1b;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100vw;
   z-index: 1000;
-  margin: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -25,485 +25,160 @@ body:has(.staging-banner[style*="display: block"]) {
   padding-top: 2.5rem;
 }
 
-/* Catppuccin Theme Overrides */
-:root {
-  /* Theme-aware color mapping - default to Mocha (dark) */
-  --theme-base: var(--ctp-mocha-base);
-  --theme-text: var(--ctp-mocha-text);
-  --theme-mantle: var(--ctp-mocha-mantle);
-  --theme-surface0: var(--ctp-mocha-surface0);
-  --theme-surface1: var(--ctp-mocha-surface1);
-  --theme-overlay0: var(--ctp-mocha-overlay0);
-  --theme-pink: var(--ctp-mocha-pink);
-  --theme-mauve: var(--ctp-mocha-mauve);
-  --theme-crust: var(--ctp-mocha-crust);
-  --theme-red: var(--ctp-mocha-red);
-  --theme-green: var(--ctp-mocha-green);
-  --theme-rainbow-green: var(--ctp-mocha-green);
-  --theme-rainbow-yellow: var(--ctp-mocha-yellow);
-  --theme-rainbow-peach: var(--ctp-mocha-peach);
-  --theme-rainbow-red: var(--ctp-mocha-red);
-  --theme-rainbow-mauve: var(--ctp-mocha-mauve);
-  --theme-rainbow-sky: var(--ctp-mocha-sky);
-}
-
-/* Light theme (Latte) override */
-html[data-theme="latte"] {
-  --theme-base: var(--ctp-latte-base);
-  --theme-text: var(--ctp-latte-text);
-  --theme-mantle: var(--ctp-latte-mantle);
-  --theme-surface0: var(--ctp-latte-surface0);
-  --theme-surface1: var(--ctp-latte-surface1);
-  --theme-overlay0: var(--ctp-latte-overlay0);
-  --theme-pink: var(--ctp-latte-pink);
-  --theme-mauve: var(--ctp-latte-mauve);
-  --theme-crust: var(--ctp-latte-crust);
-  --theme-red: var(--ctp-latte-red);
-  --theme-green: var(--ctp-latte-green);
-  --theme-rainbow-green: var(--ctp-latte-green);
-  --theme-rainbow-yellow: var(--ctp-latte-yellow);
-  --theme-rainbow-peach: var(--ctp-latte-peach);
-  --theme-rainbow-red: var(--ctp-latte-red);
-  --theme-rainbow-mauve: var(--ctp-latte-mauve);
-  --theme-rainbow-sky: var(--ctp-latte-sky);
-}
-
-/* Monochrome theme - classic black and white */
-html[data-theme="monochrome"] {
-  --theme-base: #ffffff;
-  --theme-text: #000000;
-  --theme-mantle: #f5f5f5;
-  --theme-surface0: #e0e0e0;
-  --theme-surface1: #d0d0d0;
-  --theme-overlay0: #808080;
-  --theme-pink: #000000;
-  --theme-mauve: #404040;
-  --theme-crust: #fafafa;
-  --theme-red: #000000;
-  --theme-green: #000000;
-  --theme-rainbow-green: #1a1a1a;
-  --theme-rainbow-yellow: #2a2a2a;
-  --theme-rainbow-peach: #3a3a3a;
-  --theme-rainbow-red: #4a4a4a;
-  --theme-rainbow-mauve: #5a5a5a;
-  --theme-rainbow-sky: #6a6a6a;
-}
-
-:root {
-  /* Override system7 color tokens with theme variables */
-  --sys-color-white: var(--theme-base);
-  --sys-color-black: var(--theme-text);
-  --sys-color-grey: var(--theme-surface0);
-  --sys-color-darkgrey: var(--theme-overlay0);
-
-  --primary: var(--theme-text);
-  --secondary: var(--theme-base);
-  --tertiary: var(--theme-surface0);
-  --disabled: var(--theme-overlay0);
-  --accent: var(--theme-pink);
-}
-
-/* Font setup */
-@font-face {
-  font-family: Chicago;
-  src: url("../fonts/ChicagoFLF.woff2") format("woff2"),
-       url("../fonts/ChicagoFLF.woff") format("woff");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Geneva;
-  src: url("../fonts/FindersKeepers.woff2") format("woff2"),
-       url("../fonts/FindersKeepers.woff") format("woff");
-  font-display: swap;
-}
-
-/* Base styles */
+/* Windows Vista Aurora Wallpaper Background */
 body {
-  font-family: Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--theme-base);
-  color: var(--theme-text);
-  font-size: 26px;
-  line-height: 1.4;
+  background: url('../Vista.webp') no-repeat center center fixed;
+  background-size: cover;
   padding: 2rem;
-  background: linear-gradient(90deg,
-    var(--theme-mantle) 21px,
-    transparent 1%) center,
-  linear-gradient(var(--theme-mantle) 21px,
-    transparent 1%) center, var(--theme-base);
-  background-size: 22px 22px;
+  min-height: 100vh;
 }
 
-/* Atkinson Hyperlegible font override - full site-wide implementation */
-html[data-font="atkinson"] body {
-  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 20px;
+/* Dark theme - darkened wallpaper */
+html[data-theme="mocha"] body {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../Vista.webp') no-repeat center center fixed;
+  background-size: cover;
 }
 
-html[data-font="atkinson"] h1,
-html[data-font="atkinson"] h2,
-html[data-font="atkinson"] h3 {
-  font-family: 'Atkinson Hyperlegible', Chicago, serif;
-  font-weight: bold;
-}
-
-html[data-font="atkinson"] .menu-bar,
-html[data-font="atkinson"] .menu-item,
-html[data-font="atkinson"] .dropdown-item {
-  font-family: 'Atkinson Hyperlegible', Chicago, serif;
-}
-
-html[data-font="atkinson"] .menu-item:first-child {
-  font-weight: bold;
-}
-
-html[data-font="atkinson"] .title-bar .title {
-  font-family: 'Atkinson Hyperlegible', Chicago, serif;
-  font-weight: bold;
-}
-
-html[data-font="atkinson"] .content p,
-html[data-font="atkinson"] .content li,
-html[data-font="atkinson"] .content a,
-html[data-font="atkinson"] .content code {
-  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-html[data-font="atkinson"] .footer {
-  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.92rem;
-}
-
-html[data-font="atkinson"] .project {
-  font-family: 'Atkinson Hyperlegible', Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-html[data-font="atkinson"] .track-name {
-  font-family: 'Atkinson Hyperlegible', Chicago, serif;
-  font-weight: bold;
-}
-
+/* Container for main window */
 .container {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
-/* Menu Bar */
+/* Hidden utility class */
+.hidden {
+  display: none !important;
+}
+
+/* Custom Menu Bar (not part of 7.css) */
 .menu-bar {
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
+  background: linear-gradient(180deg, #f0f0f0 0%, #e5e5e5 100%);
+  border: 1px solid #888;
+  border-bottom: 2px solid #999;
   display: flex;
   align-items: stretch;
   margin-bottom: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   position: relative;
   z-index: 10;
-  font-family: Chicago, serif;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .menu-item {
-  padding: 0.4rem 1rem;
+  padding: 6px 12px;
   cursor: pointer;
-  border-right: 2px solid var(--theme-text);
   position: relative;
   user-select: none;
-  color: var(--theme-text);
+  transition: background 0.15s ease;
 }
 
 .menu-item:first-child {
-  background: var(--theme-base);
-  color: var(--theme-text);
-  font-weight: bold;
-  padding: 0.4rem 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-weight: 600;
   cursor: default;
 }
 
-/* Only highlight when active (clicked), not on hover - matches macOS */
+.menu-item:hover:not(:first-child) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
 .menu-item.active {
-  background: var(--theme-pink);
-  color: var(--theme-crust);
+  background: linear-gradient(180deg, #3daef5 0%, #1f7dbb 100%);
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 
-.menu-item.app-name {
-  font-weight: bold;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
+.spacer {
+  flex: 1;
 }
 
-.menu-item.app-name.active {
-  background: var(--theme-pink);
-  color: var(--theme-crust);
-}
-
-/* Dropdown menu */
 .dropdown {
   display: none;
   position: fixed;
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
-  min-width: 180px;
-  max-width: calc(100vw - 1rem);
-  box-shadow: 4px 4px 0 var(--theme-surface0);
+  background: #f0f0f0;
+  border: 1px solid #888;
+  min-width: 200px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 100;
-  /* Firefox Android compatibility */
-  transform: translateZ(0);
-  will-change: top, left;
+  padding: 2px;
 }
 
-/* Click behavior only - matches macOS menu bar */
 .menu-item.active .dropdown {
   display: block;
 }
 
 .dropdown-item {
-  padding: 0.5rem 1.5rem;
+  padding: 6px 20px;
   cursor: pointer;
-  border-bottom: 1px solid var(--theme-surface0);
-  color: var(--theme-text);
+  transition: background 0.1s ease;
 }
 
 .dropdown-item a {
   color: inherit;
   text-decoration: none;
-  border: none;
   display: block;
   width: 100%;
 }
 
-/* Override global a:hover for dropdown links - explicitly set to crust when parent is hovered */
-.dropdown-item a:hover {
-  color: var(--theme-text) !important;
-  background: transparent !important;
-  border-bottom: none !important;
-}
-
-.dropdown-item:hover a:hover {
-  color: var(--theme-crust) !important;
-}
-
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
 .dropdown-item:hover {
-  background: var(--theme-pink);
-  color: var(--theme-crust);
+  background: linear-gradient(180deg, #3daef5 0%, #1f7dbb 100%);
+  color: #ffffff;
 }
 
-/* Ensure links inside dropdown items inherit hover colors - needs !important to override global a:hover */
 .dropdown-item:hover a {
-  color: var(--theme-crust) !important;
-  background: transparent !important;
-  border-bottom: none !important;
+  color: #ffffff;
 }
 
 .dropdown-item.disabled {
-  color: var(--theme-overlay0);
+  color: #999;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .dropdown-item.disabled:hover {
-  background: var(--theme-base);
-  color: var(--theme-overlay0);
-}
-
-.spacer {
-  flex: 1;
-  border-right: 2px solid var(--theme-text);
+  background: transparent;
+  color: #999;
 }
 
 .divider {
-  border-top: 1px solid var(--theme-surface0);
-  margin: 0.25rem 0;
+  border-top: 1px solid #ccc;
+  margin: 4px 2px;
 }
 
-/* Window */
+/* Override 7.css window to add some spacing */
 .window {
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
-  box-shadow: 4px 4px 0 var(--theme-surface0);
+  margin-top: 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+              0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-.title-bar {
-  display: flex;
-  align-items: center;
-  padding: 0.4rem 0.5rem;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--theme-pink) 0px,
-    var(--theme-pink) 2px,
-    transparent 2px,
-    transparent 4px
-  );
-  border-bottom: 2px solid var(--theme-text);
-}
-
-.title-bar .title {
-  margin: 0 auto;
-  padding: 0.25rem 1rem;
-  background: var(--theme-base);
-  color: var(--theme-text);
-  font-weight: bold;
-  font-size: 0.95rem;
-  font-family: Chicago, serif;
-}
-
-.window-close {
-  width: 16px;
-  height: 16px;
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
-  cursor: pointer;
-  position: relative;
-}
-
-.window-close:hover {
-  background: var(--theme-red);
-}
-
-.content {
-  padding: 2rem;
-}
-
-/* Typography */
-h1, h2, h3 {
-  color: var(--theme-pink);
-  margin-bottom: 1rem;
-  font-weight: normal;
-  font-family: Chicago, serif;
-}
-
-h1 { font-size: 2rem; }
-h2 {
-  font-size: 1.5rem;
-  margin-top: 2rem;
-  border-bottom: 2px solid var(--theme-surface1);
-  padding-bottom: 0.5rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  color: var(--theme-text);
-}
-
-a {
-  color: var(--theme-pink);
-  text-decoration: none;
-  border-bottom: 1px dotted var(--theme-pink);
-  transition: all 0.2s;
-}
-
-a:hover {
-  color: var(--theme-pink);
-  border-bottom-color: var(--theme-pink);
-  background: var(--theme-surface0);
-}
-
-/* Projects */
-.project {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: var(--theme-mantle);
-  border: 2px solid var(--theme-surface1);
-}
-
-.project h3 {
-  margin-bottom: 0.5rem;
-  color: var(--theme-pink);
-}
-
-/* Code */
-code {
-  background: var(--theme-crust);
-  padding: 0.2rem 0.4rem;
-  border: 1px solid var(--theme-surface0);
-  color: var(--theme-green);
-  font-family: 'Courier New', monospace;
-}
-
-pre {
-  background: var(--theme-crust);
-  padding: 1rem;
-  border: 2px solid var(--theme-surface0);
-  overflow-x: auto;
-  margin: 1rem 0;
-}
-
-pre code {
-  background: none;
-  border: none;
-  padding: 0;
-}
-
-/* Lists */
-ul {
-  margin-left: 2rem;
-  margin-bottom: 1rem;
-}
-
-li {
-  color: var(--theme-text);
-  margin: 0.5rem 0;
-}
-
-li::marker {
-  color: var(--theme-pink);
-}
-
-/* Images */
-.content img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1rem 0;
-}
-
-/* Footer */
+/* Footer styling */
 .footer {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 2px dotted var(--theme-surface1);
-  text-align: center;
-  color: var(--theme-overlay0);
-  font-size: 1.05rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ccc;
 }
 
-/* 88x31 Buttons */
 .buttons-88x31 {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.buttons-88x31 a {
-  border: none;
-  line-height: 0;
-  display: inline-block;
-}
-
-.buttons-88x31 a:hover {
-  background: none;
-  opacity: 0.8;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .buttons-88x31 img {
-  display: block;
-  width: 88px;
-  height: 31px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
 
 .footer-text {
-  margin-top: 0;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 1rem;
 }
 
-/* About Window Modal */
+/* About/Acknowledgements modals */
 .about-overlay {
   position: fixed;
   top: 0;
@@ -518,432 +193,221 @@ li::marker {
 }
 
 .about-window {
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
-  box-shadow: 4px 4px 0 var(--theme-surface0);
-  width: 400px;
+  width: 420px;
   max-width: 90%;
 }
 
 .about-content {
-  padding: 2rem;
   text-align: center;
 }
 
 .about-image {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .about-image img {
-  display: block;
-  margin: 0 auto;
-  border: 2px solid var(--theme-surface0);
-  background: var(--theme-mantle);
-  padding: 0.5rem;
+  max-width: 64px;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .about-text h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-size: 1.3rem;
 }
 
 .about-text p {
   margin: 0.25rem 0;
-  font-size: 1.05rem;
 }
 
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  /* Reduce body padding */
-  body {
-    padding: 1rem;
-    font-size: 22px;
-    line-height: 1.4;
-  }
-
-  /* Hide clock and its container on mobile */
-  .menu-item:has(#clock) {
-    display: none;
-  }
-
-  #clock {
-    display: none;
-  }
-
-  /* Reduce menu bar font size */
-  .menu-bar {
-    font-size: 0.85rem;
-  }
-
-  /* Reduce menu item padding */
-  .menu-item {
-    padding: 0.4rem 0.6rem;
-  }
-
-  .menu-item.app-name {
-    padding: 0.4rem 0.6rem;
-  }
-
-  .menu-item:first-child {
-    padding: 0.4rem 0.5rem;
-  }
-
-  /* Reduce content padding */
-  .content {
-    padding: 1.5rem;
-  }
-
-  /* Reduce dropdown width */
-  .dropdown {
-    min-width: 150px;
-  }
-
-  /* Adjust window for mobile */
-  .window {
-    box-shadow: 2px 2px 0 var(--theme-surface0);
-  }
-
-  /* Reduce title bar padding */
-  .title-bar {
-    padding: 0.4rem;
-  }
-
-  .title-bar .title {
-    font-size: 1rem;
-    padding: 0.2rem 0.8rem;
-  }
-
-  /* Reduce heading sizes */
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  /* About window adjustments */
-  .about-window {
-    width: 90%;
-  }
-
-  .about-content {
-    padding: 1.5rem;
-  }
-
-  .about-image img {
-    max-width: 96px !important;
-  }
-
-  /* Reduce project padding */
-  .project {
-    padding: 0.75rem;
-  }
-
-  /* Reduce footer size */
-  .footer {
-    font-size: 0.9rem;
-  }
+.divider-spaced {
+  margin: 1rem 0;
 }
 
-@media (max-width: 480px) {
-  /* Extra small screens */
-  body {
-    padding: 0.5rem;
-    font-size: 20px;
-    line-height: 1.4;
-  }
-
-  .menu-bar {
-    font-size: 0.8rem;
-  }
-
-  .content {
-    padding: 1rem;
-  }
-
-  .title-bar .title {
-    font-size: 0.9rem;
-  }
-
-  h1 {
-    font-size: 1.3rem;
-  }
-
-  h2 {
-    font-size: 1.1rem;
-  }
-
-  /* Make dropdown items more touch-friendly */
-  .dropdown-item {
-    padding: 0.6rem 1rem;
-  }
-
-  /* Adjust about window for very small screens */
-  .about-content {
-    padding: 1rem;
-  }
-
-  .about-image img {
-    max-width: 80px !important;
-  }
-
-  .about-text h3 {
-    font-size: 1.1rem;
-  }
-
-  .about-text p {
-    font-size: 0.95rem;
-  }
+.acknowledgements-footer {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-/* Wireframe images - adapt to theme colors */
-.wireframe {
-  max-width: 100%;
-  height: auto;
-  color: var(--theme-text);
+/* Projects styling */
+.project {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
-/* Apply color based on theme */
-:root[data-theme="mocha"] .wireframe {
-  filter: brightness(0) saturate(100%) invert(1);
+.project h2,
+.project h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #0066cc;
 }
 
-:root[data-theme="latte"] .wireframe,
-:root[data-theme="monochrome"] .wireframe {
-  filter: brightness(0) saturate(100%) invert(0);
+.project p {
+  margin: 0.5rem 0;
 }
 
-/* ==========================================================================
-   UNIFIED COMPONENT STYLES
-   Consolidated classes to reduce duplication across includes
-   ========================================================================== */
+.project-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
 
-/* Action Button - Unified button style for projects, last.fm, etc. */
+/* Button styling to match 7.css better */
 .action-button {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  background: var(--theme-surface0);
-  border: 2px solid var(--theme-surface1);
-  color: var(--theme-pink) !important;
-  font-family: Chicago, serif;
-  font-size: 0.9rem;
+  padding: 6px 16px;
+  background: linear-gradient(180deg, #f0f0f0 0%, #e5e5e5 100%);
+  border: 1px solid #888;
+  color: #000;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 2px 2px 0 var(--theme-surface0);
+  transition: all 0.15s;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+              0 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
 }
 
 .action-button:hover {
-  background: var(--theme-pink) !important;
-  color: var(--theme-crust) !important;
-  box-shadow: 3px 3px 0 var(--theme-surface1);
-  transform: translateY(-1px);
+  background: linear-gradient(180deg, #f5f5f5 0%, #eaeaea 100%);
+  border-color: #666;
 }
 
-/* Modal Overlay - Unified style for all modals */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+.action-button:active {
+  background: linear-gradient(180deg, #e0e0e0 0%, #d5d5d5 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Modal Window - Unified style for modal content boxes */
-.modal-window {
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
-  box-shadow: 4px 4px 0 var(--theme-surface0);
-  display: flex;
-  flex-direction: column;
+/* Post header styling */
+.post-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
 }
 
-/* Utility Classes */
-.hidden {
-  display: none;
+.post-header h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #0066cc;
 }
 
-.title-spacer {
-  width: 16px;
+.post-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
 }
 
-.error-message {
-  padding: 1rem;
-  border: 2px solid var(--theme-pink);
-  color: var(--theme-pink);
-  font-family: Chicago, serif;
+.post-tags {
+  margin-top: 0.5rem;
 }
 
-/* ==========================================================================
-   GALLERY COMPONENT
-   ========================================================================== */
-
-.masonry-gallery {
-  margin: 2rem 0;
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #e0e0e0;
+  border: 1px solid #999;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
 }
 
-.gallery-title {
-  color: var(--theme-pink);
+/* Post content */
+.post-content {
+  line-height: 1.6;
+}
+
+.post-content h2 {
+  margin-top: 2rem;
   margin-bottom: 1rem;
-  font-family: Chicago, serif;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  color: #0066cc;
 }
 
-.masonry-grid {
-  column-count: 3;
-  column-gap: 1rem;
+.post-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #0066cc;
 }
 
-.masonry-item {
-  border: 2px solid var(--theme-surface1);
-  box-shadow: 2px 2px 0 var(--theme-surface0);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  break-inside: avoid;
+.post-content p {
   margin-bottom: 1rem;
-  display: block;
-  width: 100%;
-  line-height: 0;
-  font-size: 0;
 }
 
-.masonry-item:hover {
-  box-shadow: 3px 3px 0 var(--theme-surface1);
-  transform: translateY(-2px);
+.post-content a {
+  color: #0066cc;
+  text-decoration: underline;
 }
 
-.masonry-item img {
-  width: 100%;
+.post-content a:hover {
+  color: #003d7a;
+}
+
+.post-content img {
+  max-width: 100%;
   height: auto;
   display: block;
-  margin: 0;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+}
+
+.post-content code {
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border: 1px solid #ddd;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.post-content pre {
+  background: #f5f5f5;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.post-content pre code {
+  background: none;
+  border: none;
   padding: 0;
 }
 
-.gallery-lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+.post-content ul,
+.post-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
 }
 
-.gallery-lightbox:not(.hidden) {
-  display: flex;
+.post-content li {
+  margin: 0.5rem 0;
 }
 
-.lightbox-window {
-  background: var(--theme-base);
-  border: 2px solid var(--theme-text);
-  box-shadow: 4px 4px 0 var(--theme-surface0);
-  max-width: 600px;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
+/* Atkinson Hyperlegible font override */
+html[data-font="atkinson"] body,
+html[data-font="atkinson"] .window,
+html[data-font="atkinson"] .menu-bar,
+html[data-font="atkinson"] button {
+  font-family: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.lightbox-content {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+html[data-font="atkinson"] h1,
+html[data-font="atkinson"] h2,
+html[data-font="atkinson"] h3 {
+  font-family: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
 }
 
-.lightbox-image-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-}
-
-.lightbox-image {
-  max-width: 100%;
-  max-height: 60vh;
-  height: auto;
-  display: block;
-  border: 1px solid var(--theme-surface1);
-}
-
-.lightbox-loading {
-  position: absolute;
-  color: var(--theme-text);
-  font-family: Chicago, serif;
-  font-size: 1rem;
-  display: none;
-}
-
-.lightbox-caption {
-  margin-top: 0.75rem;
-  color: var(--theme-overlay0);
-  font-family: Chicago, serif;
-  text-align: center;
-  font-size: 0.85rem;
-}
-
-.lightbox-caption:empty {
-  display: none;
-}
-
-/* Gallery Responsive Design */
-@media (max-width: 768px) {
-  .masonry-grid {
-    column-count: 2;
-  }
-
-  .lightbox-window {
-    max-width: 90vw;
-    max-height: 85vh;
-  }
-
-  .lightbox-content {
-    padding: 0.75rem;
-  }
-
-  .lightbox-image {
-    max-height: 55vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .masonry-grid {
-    column-count: 1;
-  }
-
-  .lightbox-window {
-    max-width: 95vw;
-    max-height: 90vh;
-  }
-
-  .lightbox-content {
-    padding: 0.5rem;
-  }
-
-  .lightbox-caption {
-    font-size: 0.8rem;
-  }
-}
-
-/* ==========================================================================
-   LAST.FM WIDGET COMPONENT
-   ========================================================================== */
-
+/* Last.fm Widget */
 .lastfm-widget {
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   padding: 1rem;
-  background: var(--theme-mantle);
-  border: 2px solid var(--theme-surface1);
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .lastfm-content {
@@ -954,29 +418,47 @@ li::marker {
 
 .lastfm-artwork {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
-  border: 2px solid var(--theme-surface0);
-  background: var(--theme-crust);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
 }
 
 .lastfm-artwork img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ccc;
   display: block;
 }
 
 .lastfm-info {
   flex: 1;
-  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.lastfm-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.lastfm-refresh-button {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+}
+
+.lastfm-refresh-button.refreshing {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.lastfm-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.lastfm-message.hidden {
+  display: none;
 }
 
 .lastfm-status {
@@ -984,20 +466,18 @@ li::marker {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: var(--theme-overlay0);
-  font-family: Chicago, serif;
+  color: #666;
 }
 
 .status-indicator {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--theme-overlay0);
-  display: inline-block;
+  background: #999;
 }
 
 .status-indicator.now-playing {
-  background: var(--theme-green);
+  background: #4caf50;
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -1013,147 +493,161 @@ li::marker {
 }
 
 .track-name {
-  font-family: Chicago, serif;
   font-size: 1.1rem;
-  color: var(--theme-pink);
-  font-weight: bold;
+  font-weight: 600;
+  color: #0066cc;
+}
+
+.track-name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.track-name a:hover {
+  text-decoration: underline;
 }
 
 .track-artist {
-  color: var(--theme-text);
   font-size: 0.95rem;
 }
 
 .track-album {
-  color: var(--theme-overlay0);
-  font-size: 0.95rem;
-  font-style: italic;
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.lastfm-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  align-self: flex-end;
-}
-
-.lastfm-refresh-button.refreshing {
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.lastfm-message {
-  padding: 1rem;
-  text-align: center;
-  color: var(--theme-overlay0);
+.lastfm-error {
+  color: #c00;
   font-size: 0.9rem;
 }
 
-/* Last.fm Responsive Design */
+/* Gallery - Masonry Grid */
+.masonry-gallery {
+  margin: 2rem 0;
+}
+
+.gallery-title {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #0066cc;
+}
+
+.masonry-grid {
+  column-count: 3;
+  column-gap: 1rem;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.masonry-item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #ccc;
+  transition: opacity 0.2s;
+}
+
+.masonry-item img:hover {
+  opacity: 0.8;
+}
+
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+}
+
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  position: relative;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  border: 1px solid #fff;
+}
+
+.lightbox-caption {
+  margin-top: 0.75rem;
+  color: #fff;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -2rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  color: #ccc;
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .lastfm-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  body {
+    padding: 1rem;
   }
 
-  .lastfm-artwork {
-    width: 100px;
-    height: 100px;
+  .container {
+    max-width: 100%;
   }
 
-  .lastfm-info {
-    align-items: center;
+  .menu-item:has(#clock) {
+    display: none;
   }
 
-  .lastfm-status {
+  .masonry-grid {
+    column-count: 2;
+  }
+
+  .buttons-88x31 {
     justify-content: center;
-  }
-
-  .lastfm-actions {
-    align-self: center;
   }
 }
 
 @media (max-width: 480px) {
-  .lastfm-widget {
-    padding: 0.75rem;
+  body {
+    padding: 0.5rem;
   }
 
-  .lastfm-artwork {
-    width: 80px;
-    height: 80px;
+  .menu-bar {
+    font-size: 0.8rem;
   }
 
-  .track-name {
-    font-size: 1rem;
+  .menu-item {
+    padding: 4px 8px;
   }
-}
 
-/* ==========================================================================
-   PROJECT PREVIEW COMPONENT
-   ========================================================================== */
-
-.project-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
-
-/* Project Actions Responsive Design */
-@media (max-width: 768px) {
-  .project-actions {
-    justify-content: center;
+  .masonry-grid {
+    column-count: 1;
   }
-}
 
-/* ==========================================================================
-   POST LAYOUT
-   ========================================================================== */
-
-.post-header {
-  margin-bottom: 2em;
-  padding-bottom: 1em;
-  border-bottom: 2px solid var(--theme-surface1);
-}
-
-.post-header h1 {
-  margin-top: 0;
-  color: var(--theme-pink);
-}
-
-.post-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.tag {
-  background: var(--theme-surface0);
-  padding: 4px 12px;
-  border: 1px solid var(--theme-surface1);
-  font-size: 0.85em;
-  color: var(--theme-pink);
-}
-
-/* Default Layout Inline Styles Converted to Classes */
-
-/* About image styling */
-.about-image img {
-  max-width: 128px;
-  height: auto;
-}
-
-/* Divider with margin */
-.divider-spaced {
-  margin: 1rem 0;
-}
-
-/* Footer acknowledgements text styling */
-.acknowledgements-footer {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--theme-overlay0);
+  .about-window {
+    width: 95%;
+  }
 }
