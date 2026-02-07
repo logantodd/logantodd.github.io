@@ -1,7 +1,8 @@
 {% assign username = include.username | default: site.lastfm.username %}
 {% assign api_key = include.api_key | default: site.lastfm.api_key %}
 
-<div class="lastfm-widget">
+<fieldset class="lastfm-widget">
+  <legend>Now Playing</legend>
   <div class="lastfm-content">
     <div class="lastfm-artwork">
       <img id="lastfm-album-art" src="" alt="Album artwork">
@@ -19,21 +20,18 @@
         <div class="track-album" id="lastfm-album-name">—</div>
       </div>
 
-      <div class="lastfm-actions">
-        <button id="lastfm-refresh" class="action-button lastfm-refresh-button">
-          Refresh
-        </button>
-        <a href="#" id="lastfm-link" class="action-button" target="_blank" rel="noopener noreferrer">
-          View on Last.fm
-        </a>
+      <div class="button-group">
+        <button id="lastfm-refresh">Refresh</button>
+        <button id="lastfm-link-btn">View on Last.fm</button>
       </div>
+      <a href="#" id="lastfm-link" class="hidden" target="_blank" rel="noopener noreferrer"></a>
     </div>
   </div>
 
   <div class="lastfm-message hidden" id="lastfm-error">
     <span id="lastfm-error-text"></span>
   </div>
-</div>
+</fieldset>
 
 <script>
 (function() {
@@ -81,10 +79,18 @@
         manualRefresh();
       });
     }
+
+    // Add Last.fm link button handler
+    const linkBtn = document.getElementById('lastfm-link-btn');
+    if (linkBtn && elements.link) {
+      linkBtn.addEventListener('click', function() {
+        window.open(elements.link.href, '_blank', 'noopener,noreferrer');
+      });
+    }
   }
 
   function manualRefresh() {
-    if (elements.refreshButton && elements.refreshButton.classList.contains('refreshing')) {
+    if (elements.refreshButton && elements.refreshButton.disabled) {
       return; // Already refreshing
     }
 
@@ -94,11 +100,7 @@
 
   function setRefreshingState(isRefreshing) {
     if (elements.refreshButton) {
-      if (isRefreshing) {
-        elements.refreshButton.classList.add('refreshing');
-      } else {
-        elements.refreshButton.classList.remove('refreshing');
-      }
+      elements.refreshButton.disabled = isRefreshing;
     }
   }
 

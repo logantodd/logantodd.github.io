@@ -1,6 +1,7 @@
 title: abby's site
 description: haiiiii :3
 baseurl: ""
+theme: null
 
 # Last.fm Integration
 lastfm:

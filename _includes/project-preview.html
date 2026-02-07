@@ -1,23 +1,21 @@
 {% assign project = include.project %}
 
-<div class="project">
-  <h2>{{ project.title }}</h2>
+<fieldset>
+  <legend>{{ project.title }}</legend>
   <p>{{ project.description }}</p>
 
-  <div class="project-actions">
+  <div class="button-group">
     {% if project.article %}
-    <a href="{{ project.url | relative_url }}" class="action-button">
-      Read More
-    </a>
+    <button onclick="window.location.href='{{ project.url | relative_url }}'">Read More</button>
     {% endif %}
     {% if project.external_url and project.external_url != "" %}
-    <a href="{{ project.external_url }}" class="action-button" target="_blank" rel="noopener noreferrer">
+    <button onclick="window.open('{{ project.external_url }}', '_blank', 'noopener,noreferrer')">
       {% if project.url_text and project.url_text != "" %}
         {{ project.url_text }}
       {% else %}
         External Link
       {% endif %}
-    </a>
+    </button>
     {% endif %}
   </div>
-</div>
+</fieldset>

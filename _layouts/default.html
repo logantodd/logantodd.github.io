@@ -20,26 +20,62 @@
     }
   })();
   </script>
-  <div class="container">
-    {% include menubar.html %}
 
-    <div class="window" role="main">
+  <!-- Desktop Area -->
+  <div class="desktop">
+    {% include desktop-icons.html %}
+
+    <!-- Main Window -->
+    <div class="window active glass" role="main">
       <div class="title-bar">
         <div class="title-bar-text">{{ page.title | default: site.title }}</div>
         <div class="title-bar-controls">
-          <button aria-label="Minimize" disabled></button>
-          <button aria-label="Maximize" disabled></button>
-          <button aria-label="Close" disabled></button>
+          <button aria-label="Close" onclick="window.location.href='{{ '/' | relative_url }}'"></button>
         </div>
       </div>
 
-      <div class="window-body">
+      <!-- Menu Bar -->
+      <ul role="menubar" class="can-hover">
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          File
+          <ul role="menu">
+            <li role="menuitem"><a href="#" id="about-menu-item">About</a></li>
+            <li role="menuitem"><a href="#" id="acknowledgements-menu-item">Acknowledgements</a></li>
+            <li role="menuitem" class="has-divider"></li>
+            <li role="menuitem"><a href="{{ '/' | relative_url }}" id="close-window-menu-item">Close Window</a></li>
+          </ul>
+        </li>
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          Navigate
+          <ul role="menu">
+            <li role="menuitem"><a href="{{ '/' | relative_url }}">Home</a></li>
+            <li role="menuitem"><a href="{{ '/projects' | relative_url }}">Projects</a></li>
+            <li role="menuitem"><a href="{{ '/blog' | relative_url }}">Blog</a></li>
+            <li role="menuitem"><a href="{{ '/gallery' | relative_url }}">Gallery</a></li>
+            <li role="menuitem" class="has-divider"></li>
+            <li role="menuitem"><a href="{{ '/resume' | relative_url }}">Resume</a></li>
+          </ul>
+        </li>
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          View
+          <ul role="menu">
+            <li role="menuitem"><a href="#" id="atkinson-font-menu">Atkinson Hyperlegible</a></li>
+          </ul>
+        </li>
+        <li role="menuitem" tabindex="0" aria-haspopup="true">
+          Help
+          <ul role="menu">
+            <li role="menuitem"><a href="https://github.com/abbyfluoroethane/abbyfluoroethane.github.io/issues" target="_blank">Report a Bug</a></li>
+            <li role="menuitem"><a href="https://github.com/abbyfluoroethane/abbyfluoroethane.github.io" target="_blank">View Source</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="window-body has-space has-scrollbar">
         {{ content }}
 
         <div class="footer">
           <div class="buttons-88x31">
-            <!-- Add your 88x31 buttons here -->
-            <!-- Example: <a href="https://example.com"><img src="{{ '/assets/images/buttons/button.gif' | relative_url }}" alt="Button" width="88" height="31"></a> -->
              <a href="https://friends.dorm.social"><img src="{{ '/assets/images/buttons/dorm.gif' | relative_url }}" alt="dorm" width="88" height="31"></a>
              <a href="https://fedoraproject.org"><img src="{{ '/assets/images/buttons/fedora.png' | relative_url }}" alt="fedora" width="88" height="31"></a>
              <img src="{{ '/assets/images/buttons/macos.gif' | relative_url }}" alt="Button" width="88" height="31">
@@ -51,59 +87,148 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- About Window Modal -->
-  <div id="about-overlay" class="about-overlay hidden">
-    <div class="window about-window">
-      <div class="title-bar">
-        <div class="title-bar-text">About</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" id="about-close"></button>
-        </div>
-      </div>
-
-      <div class="window-body about-content">
-        <div class="about-image">
-          <!-- You can add an image here -->
-          <img src="{{ '/assets/images/about.gif' | relative_url }}" alt="About Icon">
-        </div>
-        <div class="about-text">
-          <h3>{{ site.title | default: "Portfolio" }}</h3>
-          <p>version 1.3.0</p>
-          <p>made on earth by humans</p>
-          <p>2025 abby bigaouette</p>
-        </div>
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <p class="status-bar-field" id="clock">--:--</p>
       </div>
     </div>
-  </div>
 
-  <!-- Acknowledgements Window Modal -->
-  <div id="acknowledgements-overlay" class="about-overlay hidden">
-    <div class="window about-window">
-      <div class="title-bar">
-        <div class="title-bar-text">Acknowledgements</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" id="acknowledgements-close"></button>
+    <!-- About Window Modal -->
+    <div id="about-overlay" class="window-overlay hidden">
+      <div class="window active glass about-window">
+        <div class="title-bar">
+          <div class="title-bar-text">About</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close" id="about-close"></button>
+          </div>
         </div>
-      </div>
 
-      <div class="window-body about-content">
-        <div class="about-text">
-          <h3>built with</h3>
-          <p><strong>Jekyll</strong> - static site generator</p>
-          <p><strong>Catppuccin</strong> - soothing pastel theme</p>
-          <p><strong>7.css</strong> - Windows 7 inspired CSS</p>
-          <p><strong>Atkinson Hyperlegible</strong> - accessible font</p>
-          <p><strong>Last.fm API</strong> - music tracking</p>
-          <div class="divider divider-spaced"></div>
-          <p class="acknowledgements-footer">
-            hosted on GitHub Pages
-          </p>
+        <div class="window-body has-space about-content">
+          <div class="about-image">
+            <img src="{{ '/assets/images/about.gif' | relative_url }}" alt="About Icon">
+          </div>
+          <div class="about-text">
+            <h3>{{ site.title | default: "Portfolio" }}</h3>
+            <p>version 1.3.0</p>
+            <p>made on earth by humans</p>
+            <p>2025 abby bigaouette</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Acknowledgements Window Modal -->
+    <div id="acknowledgements-overlay" class="window-overlay hidden">
+      <div class="window active glass about-window">
+        <div class="title-bar">
+          <div class="title-bar-text">Acknowledgements</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close" id="acknowledgements-close"></button>
+          </div>
+        </div>
+
+        <div class="window-body has-space about-content">
+          <div class="about-text">
+            <h3>built with</h3>
+            <p><strong>Jekyll</strong> - static site generator</p>
+            <p><strong>7.css</strong> - Windows 7 inspired CSS</p>
+            <p><strong>Atkinson Hyperlegible</strong> - accessible font</p>
+            <p><strong>Last.fm API</strong> - music tracking</p>
+            <hr>
+            <p class="acknowledgements-footer">
+              hosted on GitHub Pages
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Menu and UI Script -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      const clockEl = document.getElementById('clock');
+      if (clockEl) {
+        clockEl.textContent = `${hours}:${minutes} ${ampm}`;
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Font toggle
+    const CHECKMARK = '\u2713 ';
+    const fontMenu = document.getElementById('atkinson-font-menu');
+
+    function updateFontCheckmark() {
+      if (!fontMenu) return;
+      const current = document.documentElement.getAttribute('data-font');
+      fontMenu.textContent = fontMenu.textContent.replace(CHECKMARK, '');
+      if (current === 'atkinson') {
+        fontMenu.textContent = CHECKMARK + fontMenu.textContent;
+      }
+    }
+
+    updateFontCheckmark();
+
+    if (fontMenu) {
+      fontMenu.addEventListener('click', function(e) {
+        e.preventDefault();
+        const current = document.documentElement.getAttribute('data-font');
+        const newFont = current === 'atkinson' ? 'default' : 'atkinson';
+        document.documentElement.setAttribute('data-font', newFont);
+        try {
+          localStorage.setItem('font', newFont);
+        } catch (err) {}
+        updateFontCheckmark();
+      });
+    }
+
+    // About window
+    const aboutMenuItem = document.getElementById('about-menu-item');
+    const aboutOverlay = document.getElementById('about-overlay');
+
+    if (aboutMenuItem && aboutOverlay) {
+      aboutMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        aboutOverlay.classList.remove('hidden');
+      });
+    }
+
+    // Acknowledgements window
+    const ackMenuItem = document.getElementById('acknowledgements-menu-item');
+    const ackOverlay = document.getElementById('acknowledgements-overlay');
+
+    if (ackMenuItem && ackOverlay) {
+      ackMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        ackOverlay.classList.remove('hidden');
+      });
+    }
+
+    // Close buttons for modals
+    const aboutClose = document.getElementById('about-close');
+    if (aboutClose) {
+      aboutClose.addEventListener('click', function() {
+        aboutOverlay.classList.add('hidden');
+      });
+    }
+
+    const ackClose = document.getElementById('acknowledgements-close');
+    if (ackClose) {
+      ackClose.addEventListener('click', function() {
+        ackOverlay.classList.add('hidden');
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
