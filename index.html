@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connections</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #f9df6d;
+    --green: #a0c35a;
+    --blue: #b0c4ef;
+    --purple: #ba81c5;
+    --tile-bg: #efefe6;
+    --tile-bg-selected: #5a594e;
+    --tile-text: #000;
+    --tile-text-selected: #fff;
+    --bg: #fff;
+    --text: #000;
+    --submit-bg: #000;
+    --submit-text: #fff;
+    --mistakes-dot: #000;
+    --mistakes-dot-empty: #ccc;
+  }
+
+  body {
+    font-family: 'Libre Franklin', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
+  .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .solved-row {
+    grid-column: 1 / -1;
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .solved-row.newly-solved {
+    animation: revealRow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes revealRow {
+    from { transform: scaleY(0.3); opacity: 0; }
+    to { transform: scaleY(1); opacity: 1; }
+  }
+
+  .solved-row .category-name {
+    font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .solved-row .category-words {
+    font-size: 0.9rem; font-weight: 500; margin-top: 2px;
+  }
+
+  .solved-row.yellow { background: var(--yellow); }
+  .solved-row.green { background: var(--green); }
+  .solved-row.blue { background: var(--blue); }
+  .solved-row.purple { background: var(--purple); }
+
+  .tile {
+    background: var(--tile-bg);
+    border: none;
+    border-radius: 8px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+    color: var(--tile-text);
+    text-align: center;
+    padding: 4px 6px;
+    word-break: break-word;
+    line-height: 1.15;
+  }
+
+  .tile:hover:not(.animating) { transform: scale(1.02); }
+  .tile:active:not(.animating) { transform: scale(0.97); }
+
+  .tile.selected {
+    background: var(--tile-bg-selected);
+    color: var(--tile-text-selected);
+  }
+
+  .tile.bounce {
+    animation: bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.08) translateY(-8px); }
+    50% { transform: scale(0.97) translateY(0); }
+    70% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+
+  .tile.shrink {
+    animation: shrinkAway 0.25s ease-in forwards;
+  }
+
+  @keyframes shrinkAway {
+    to { transform: scale(0.6); opacity: 0; }
+  }
+
+  .tile.shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  .mistakes-remaining {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-bottom: 16px; font-size: 0.85rem; font-weight: 500;
+  }
+
+  .mistake-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--mistakes-dot);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .mistake-dot.used { background: var(--mistakes-dot-empty); transform: scale(0.7); }
+
+  .controls {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    max-width: 600px; width: 100%;
+  }
+
+  .btn {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    padding: 12px 28px; border-radius: 24px;
+    cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+    border: 2px solid transparent;
+  }
+  .btn:active { transform: scale(0.96); }
+
+  .btn-shuffle, .btn-deselect {
+    background: #fff; color: var(--text); border-color: #000;
+  }
+
+  .btn-submit {
+    background: var(--submit-bg); color: var(--submit-text); border-color: var(--submit-bg);
+  }
+  .btn-submit:disabled {
+    background: #fff; color: #000; border-color: #a0a0a0;
+    cursor: default; opacity: 0.5;
+  }
+  .btn-deselect:disabled { opacity: 0.4; cursor: default; }
+
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: #fff; border-radius: 16px; padding: 40px;
+    max-width: 420px; width: 90%; text-align: center;
+    transform: scale(0.9); transition: transform 0.3s;
+  }
+  .modal-overlay.active .modal { transform: scale(1); }
+  .modal h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+  .modal p { margin-bottom: 8px; font-size: 0.95rem; }
+
+  .modal .result-row { display: flex; justify-content: center; gap: 4px; margin: 4px 0; }
+  .modal .result-emoji { width: 32px; height: 32px; border-radius: 4px; display: inline-block; }
+  .modal .result-emoji.yellow { background: var(--yellow); }
+  .modal .result-emoji.green { background: var(--green); }
+  .modal .result-emoji.blue { background: var(--blue); }
+  .modal .result-emoji.purple { background: var(--purple); }
+  .modal .btn { margin-top: 20px; }
+
+  .toast {
+    position: fixed; top: 60px; left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: #000; color: #fff;
+    padding: 12px 24px; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 600;
+    opacity: 0; transition: opacity 0.3s, transform 0.3s;
+    z-index: 200; pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== CLICK HEART PARTICLE ===== */
+  .click-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 300;
+    font-size: 18px;
+    animation: clickHeartFade 0.7s ease-out forwards;
+  }
+
+  @keyframes clickHeartFade {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -100%) scale(1.5); }
+  }
+
+  /* ===== GAME WRAPPER (hidden until play) ===== */
+  .game-wrapper {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .game-wrapper.active {
+    display: flex;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== VALENTINE SPLASH ===== */
+  .splash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .splash.hidden {
+    display: none;
+  }
+
+  .splash-hearts {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .splash-hearts.hidden {
+    display: none;
+  }
+
+  .floating-heart {
+    position: absolute;
+    bottom: -60px;
+    font-size: 24px;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-110vh) rotate(360deg) scale(0.5); opacity: 0; }
+  }
+
+  .splash-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .splash-emoji {
+    font-size: 4.5rem;
+    margin-bottom: 16px;
+    animation: heartPulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+
+  .splash-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #c0395e;
+    margin-bottom: 8px;
+  }
+
+  .splash-sub {
+    font-size: 1.05rem;
+    color: #888;
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+
+  .btn-play {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 16px 52px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #e8455e, #c0395e);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(200, 50, 80, 0.35);
+    letter-spacing: 0.5px;
+  }
+
+  .btn-play:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 28px rgba(200, 50, 80, 0.5);
+  }
+
+  .btn-play:active { transform: scale(0.97); }
+
+  /* ===== LOVE LETTER SCREEN ===== */
+  .love-letter-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    width: 100%;
+    position: relative;
+  }
+
+  .love-letter-screen.active {
+    display: flex;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .love-letter-card {
+    background: linear-gradient(145deg, #fff5f7, #ffe8ee);
+    border: 2px solid #f0c0cc;
+    border-radius: 20px;
+    padding: 40px 36px;
+    max-width: 520px;
+    width: 90%;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 40px rgba(200, 60, 90, 0.12);
+  }
+
+  .love-letter-card .letter-hearts {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+  }
+
+  .love-letter-card h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #c0395e;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .love-letter-card .letter-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4a3040;
+    font-weight: 400;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+
+  .btn-admire {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 26px;
+    border: 2px solid #c0395e;
+    background: #fff;
+    color: #c0395e;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s, color 0.2s;
+  }
+
+  .btn-admire:hover {
+    background: #c0395e;
+    color: #fff;
+    transform: scale(1.04);
+  }
+
+  .btn-admire:active { transform: scale(0.96); }
+
+  /* Share button style for modal */
+  .btn-share {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 14px 36px;
+    border-radius: 26px;
+    border: none;
+    background: linear-gradient(135deg, #e8455e, #c0395e);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(200, 50, 80, 0.3);
+    margin-top: 16px;
+  }
+
+  .btn-share:hover {
+    transform: scale(1.04);
+    box-shadow: 0 6px 24px rgba(200, 50, 80, 0.45);
+  }
+
+  .btn-share:active { transform: scale(0.96); }
+
+  @media (max-width: 480px) {
+    .tile { height: 60px; font-size: 0.72rem; }
+    .btn { padding: 10px 20px; font-size: 0.8rem; }
+    h1 { font-size: 1.4rem; }
+    .board { gap: 6px; }
+    .splash-title { font-size: 1.8rem; }
+    .splash-emoji { font-size: 3.5rem; }
+    .love-letter-card { padding: 28px 24px; }
+    .love-letter-card h2 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- VALENTINE SPLASH SCREEN -->
+<div class="splash" id="splash">
+  <div class="splash-hearts" id="splashHearts"></div>
+  <div class="splash-content">
+    <div class="splash-emoji">💝</div>
+    <div class="splash-title">Happy Valentine's Day</div>
+    <p class="splash-sub">A special puzzle, just for you</p>
+    <button class="btn-play" onclick="startGame()">Play</button>
+  </div>
+</div>
+
+<!-- GAME (hidden until play) -->
+<div class="game-wrapper" id="gameWrapper">
+
+<h1>Connections</h1>
+<p class="subtitle">Create four groups of four!</p>
+
+<div class="board" id="board"></div>
+
+<div class="mistakes-remaining" id="mistakes">
+  <span>Mistakes remaining:</span>
+  <span class="mistake-dot" id="dot0"></span>
+  <span class="mistake-dot" id="dot1"></span>
+  <span class="mistake-dot" id="dot2"></span>
+  <span class="mistake-dot" id="dot3"></span>
+</div>
+
+<div class="controls">
+  <button class="btn btn-shuffle" id="shuffleBtn" onclick="shuffleTiles()">Shuffle</button>
+  <button class="btn btn-deselect" id="deselectBtn" onclick="deselectAll()" disabled>Deselect all</button>
+  <button class="btn btn-submit" id="submitBtn" onclick="submitGuess()" disabled>Submit</button>
+</div>
+
+</div><!-- /game-wrapper -->
+
+<!-- LOVE LETTER SCREEN (shown after sharing results) -->
+<div class="love-letter-screen" id="loveLetter">
+  <div class="splash-hearts" id="letterHearts"></div>
+  <div class="love-letter-card">
+    <div class="letter-hearts">💌</div>
+    <h2>A Note for Ceci</h2>
+    <div class="letter-body">
+      <!-- ========================================== -->
+      <!-- WRITE YOUR MESSAGE TO YOUR GIRLFRIEND HERE -->
+      <!-- ========================================== -->
+      Write your heartfelt message here. Replace this text with whatever you want to say. You could talk about why you love her, a favorite memory together, or simply how she makes your days brighter. Make it personal, make it yours.
+    </div>
+    <button class="btn-admire" onclick="showPuzzle()">Admire the Puzzle ❤️</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURE YOUR PUZZLE HERE
+// ============================================================
+const CATEGORIES = [
+  {
+    name: "PLACES CECI EATS",
+    words: ["ROOTS", "CHICK", "SOUTH", "GRANDMAS"],
+    difficulty: 0
+  },
+  {
+    name: "MATHMATICAL CONCEPTS IN FOOTBALL",
+    words: ["INTERCEPTION", "DIVISION", "BOUNDS", "FIELD"],
+    difficulty: 1
+  },
+  {
+    name: "PARTS OF A CIRCLE",
+    words: ["ANGLE", "ARC", "CHORD", "RING"],
+    difficulty: 2
+  },
+  {
+    name: "TCOMPLETING THE PHRASE “____ FIELD”",
+    words: ["SCALAR", "CORN", "MINE", "LEFT"],
+    difficulty: 3
+  }
+];
+
+// ============================================================
+// GAME STATE
+// ============================================================
+const COLORS = ['yellow', 'green', 'blue', 'purple'];
+
+let tiles = [];
+let selected = [];
+let solved = [];
+let solvedSet = new Set();
+let newlySolvedName = null;
+let mistakesLeft = 4;
+let guessHistory = [];
+let previousGuesses = [];
+let gameOver = false;
+let isAnimating = false;
+
+function init() {
+  tiles = [];
+  CATEGORIES.forEach(cat => {
+    cat.words.forEach(word => {
+      tiles.push({ word, category: cat.name, difficulty: cat.difficulty });
+    });
+  });
+  shuffleArray(tiles);
+  selected = [];
+  solved = [];
+  solvedSet = new Set();
+  newlySolvedName = null;
+  mistakesLeft = 4;
+  guessHistory = [];
+  previousGuesses = [];
+  gameOver = false;
+  isAnimating = false;
+  render();
+  updateMistakes();
+  updateButtons();
+}
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function render() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+
+  solved.forEach(cat => {
+    const row = document.createElement('div');
+    const isNew = (cat.name === newlySolvedName);
+    row.className = `solved-row ${COLORS[cat.difficulty]}${isNew ? ' newly-solved' : ''}`;
+    row.innerHTML = `
+      <div class="category-name">${cat.name}</div>
+      <div class="category-words">${cat.words.join(', ')}</div>
+    `;
+    if (isNew) {
+      row.addEventListener('animationend', () => { newlySolvedName = null; }, { once: true });
+    }
+    board.appendChild(row);
+  });
+
+  tiles.forEach(tile => {
+    const el = document.createElement('button');
+    el.className = 'tile' + (selected.includes(tile) ? ' selected' : '');
+    el.textContent = tile.word;
+    el.onclick = (e) => toggleTile(tile, e);
+    el.dataset.word = tile.word;
+    board.appendChild(el);
+  });
+}
+
+function spawnClickHeart(e) {
+  const heart = document.createElement('span');
+  heart.className = 'click-heart';
+  heart.textContent = '❤';
+  heart.style.left = e.clientX + 'px';
+  heart.style.top = e.clientY + 'px';
+  document.body.appendChild(heart);
+  heart.addEventListener('animationend', () => heart.remove());
+}
+
+function toggleTile(tile, e) {
+  if (gameOver || isAnimating) return;
+  if (e) spawnClickHeart(e);
+  if (selected.includes(tile)) {
+    selected = selected.filter(t => t !== tile);
+  } else {
+    if (selected.length >= 4) return;
+    selected.push(tile);
+  }
+  render();
+  updateButtons();
+}
+
+function deselectAll() {
+  if (isAnimating) return;
+  selected = [];
+  render();
+  updateButtons();
+}
+
+function shuffleTiles() {
+  if (isAnimating) return;
+  shuffleArray(tiles);
+  render();
+}
+
+function updateButtons() {
+  document.getElementById('deselectBtn').disabled = selected.length === 0 || isAnimating;
+  document.getElementById('submitBtn').disabled = selected.length !== 4 || isAnimating;
+  document.getElementById('shuffleBtn').disabled = isAnimating;
+}
+
+function updateMistakes() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById(`dot${i}`).className =
+      'mistake-dot' + (i >= mistakesLeft ? ' used' : '');
+  }
+}
+
+function showToast(msg, duration = 1500) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+function setLocked(locked) {
+  isAnimating = locked;
+  updateButtons();
+}
+
+function submitGuess() {
+  if (selected.length !== 4 || gameOver || isAnimating) return;
+
+  const guessWords = selected.map(t => t.word).sort().join(',');
+  if (previousGuesses.includes(guessWords)) {
+    showToast('Already guessed!');
+    return;
+  }
+  previousGuesses.push(guessWords);
+  guessHistory.push(selected.map(t => t.difficulty));
+
+  const category = selected[0].category;
+  const allMatch = selected.every(t => t.category === category);
+
+  if (allMatch) {
+    handleCorrectGuess(category);
+  } else {
+    handleWrongGuess();
+  }
+}
+
+function handleCorrectGuess(category) {
+  setLocked(true);
+
+  const cat = CATEGORIES.find(c => c.name === category);
+  const selectedWords = new Set(selected.map(t => t.word));
+
+  // Step 1: Sequential bounce on selected tiles
+  const tileEls = [...document.querySelectorAll('.tile')].filter(
+    el => selectedWords.has(el.dataset.word)
+  );
+
+  tileEls.forEach((el, i) => {
+    el.classList.add('animating');
+    setTimeout(() => el.classList.add('bounce'), i * 100);
+  });
+
+  // Step 2: After bounces, shrink the matched tiles
+  const bounceEnd = tileEls.length * 100 + 450;
+  setTimeout(() => {
+    tileEls.forEach(el => {
+      el.classList.remove('bounce');
+      el.classList.add('shrink');
+    });
+  }, bounceEnd);
+
+  // Step 3: Update state and reveal solved row
+  setTimeout(() => {
+    solved.push(cat);
+    solvedSet.add(cat.name);
+    newlySolvedName = cat.name;
+    tiles = tiles.filter(t => t.category !== category);
+    selected = [];
+
+    render();
+    setLocked(false);
+
+    if (solved.length === 4) {
+      gameOver = true;
+      setTimeout(() => showResultsModal(true), 700);
+    }
+  }, bounceEnd + 250);
+}
+
+function handleWrongGuess() {
+  const categoryCounts = {};
+  selected.forEach(t => {
+    categoryCounts[t.category] = (categoryCounts[t.category] || 0) + 1;
+  });
+  const maxInOneCategory = Math.max(...Object.values(categoryCounts));
+  if (maxInOneCategory === 3) showToast('One away…');
+
+  setLocked(true);
+
+  const selectedWords = new Set(selected.map(t => t.word));
+  const tileEls = [...document.querySelectorAll('.tile')].filter(
+    el => selectedWords.has(el.dataset.word)
+  );
+  tileEls.forEach(el => el.classList.add('shake'));
+
+  setTimeout(() => {
+    mistakesLeft = Math.max(0, mistakesLeft - 1);
+    updateMistakes();
+
+    selected = [];
+    render();
+    setLocked(false);
+  }, 600);
+}
+
+function revealRemainingCategories(index) {
+  const remaining = CATEGORIES.filter(c => !solvedSet.has(c.name))
+    .sort((a, b) => a.difficulty - b.difficulty);
+
+  if (index >= remaining.length) {
+    setTimeout(() => showResultsModal(false), 500);
+    return;
+  }
+
+  const cat = remaining[index];
+  solved.push(cat);
+  solvedSet.add(cat.name);
+  newlySolvedName = cat.name;
+  tiles = tiles.filter(t => t.category !== cat.name);
+  selected = [];
+  render();
+
+  setTimeout(() => revealRemainingCategories(index + 1), 450);
+}
+
+function getResultsText() {
+  const emojiMap = ['🟨', '🟩', '🟦', '🟪'];
+  let text = 'Connections\n';
+  guessHistory.forEach(guess => {
+    text += guess.map(d => emojiMap[d]).join('') + '\n';
+  });
+  return text.trim();
+}
+
+function showResultsModal(won) {
+  const overlay = document.getElementById('modalOverlay');
+  const modal = document.getElementById('modal');
+
+  let resultGrid = '';
+  guessHistory.forEach(guess => {
+    const row = guess.map(d => `<span class="result-emoji ${COLORS[d]}"></span>`).join('');
+    resultGrid += `<div class="result-row">${row}</div>`;
+  });
+
+  modal.innerHTML = `
+    <h2>${won ? '🎉 Nice!' : 'Next time!'}</h2>
+    <p style="margin-bottom:16px">${won ? 'You found all the connections!' : 'Better luck next time.'}</p>
+    ${resultGrid}
+    <button class="btn-share" onclick="shareResults()">Share Your Results 💕</button>
+  `;
+  overlay.classList.add('active');
+}
+
+function shareResults() {
+  const text = getResultsText();
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Copied to clipboard!', 2000);
+  }).catch(() => {
+    showToast('Could not copy', 1500);
+  });
+
+  // Close modal and show love letter
+  closeModal();
+  document.getElementById('gameWrapper').classList.remove('active');
+
+  // Create floating hearts for the letter screen
+  const letterHeartsContainer = document.getElementById('letterHearts');
+  letterHeartsContainer.innerHTML = '';
+  const hearts = ['💕', '💗', '💖', '❤️', '💘', '🩷', '🤍', '♥️'];
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement('span');
+    heart.className = 'floating-heart';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (16 + Math.random() * 22) + 'px';
+    heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+    heart.style.animationDelay = (Math.random() * 6) + 's';
+    letterHeartsContainer.appendChild(heart);
+  }
+
+  document.getElementById('loveLetter').classList.add('active');
+}
+
+function showPuzzle() {
+  document.getElementById('loveLetter').classList.remove('active');
+  document.getElementById('letterHearts').innerHTML = '';
+  document.getElementById('gameWrapper').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// ============================================================
+// VALENTINE SPLASH SCREEN
+// ============================================================
+function createFloatingHearts() {
+  const container = document.getElementById('splashHearts');
+  const hearts = ['💕', '💗', '💖', '❤️', '💘', '🩷', '🤍', '♥️'];
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement('span');
+    heart.className = 'floating-heart';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (16 + Math.random() * 22) + 'px';
+    heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+    heart.style.animationDelay = (Math.random() * 8) + 's';
+    container.appendChild(heart);
+  }
+}
+
+function startGame() {
+  document.getElementById('splash').classList.add('hidden');
+  document.getElementById('splashHearts').classList.add('hidden');
+  document.getElementById('gameWrapper').classList.add('active');
+  init();
+}
+
+createFloatingHearts();
+</script>
+</body>
+</html>
